@@ -1,0 +1,45 @@
+.kekomi_file_browser_folder_tree {
+	.ui-toggle {
+		float: left;
+		cursor: pointer;
+		margin-top: -2px;
+	}
+	.name-wrapper {
+		font-size: 12px;
+		padding: 5px 0;
+		cursor: pointer;
+		&:hover {
+			background: #ccc;
+		}
+		&.active {
+			background: #f30;
+			color: white;
+		}
+	}
+	ul li {
+		.name-wrapper {
+			padding-left: 15px;
+		}
+		ul li {
+			.name-wrapper {
+				padding-left: 30px;
+			}
+			ul li {
+				.name-wrapper {
+					padding-left: 45px;
+				}
+				ul li {
+					.name-wrapper {
+						padding-left: 60px;
+					}
+					ul li {
+						.name-wrapper {
+							padding-left: 75px;
+						}
+					}
+				}
+			}
+		}
+			
+	}
+}

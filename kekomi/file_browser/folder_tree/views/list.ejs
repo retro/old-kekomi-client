@@ -1,0 +1,13 @@
+<% for(var i=0; i < this.length; i++){ 
+	var item = this[i];
+%>
+ <li>
+ 	<div class='name-wrapper'>
+		<span class='ui-icon ui-icon-triangle-1-e ui-toggle' 
+			 style='visibility: <%= item.hasChildren && item.hasChildren() ? '' : 'hidden' %>' >
+		</span>
+		<span tabindex='0' <%= item %>><%= item.name %></span>
+	</div>
+	<ul></ul>
+ </li>
+<% } %>

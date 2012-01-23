@@ -1,0 +1,28 @@
+<td class="is-selected"><input type="checkbox" /></td>
+<td class="thumb">
+	<% if(type == "image"){ %>
+		<img src="<%= filename %>" />
+	<% } else if(type == "document"){ %>
+		<img class="icon" src="<%= steal.root.join("kekomi/style/images/cc/white/png/doc_lines_icon&32.png") %>" />
+	<% } else if(type == "video"){ %>
+		<img class="icon" src="<%= steal.root.join("kekomi/style/images/cc/white/png/movie_icon&32.png") %>" />
+	<% } %>
+</td>
+<td class="filename">
+	<%= name %>
+	<% if(tags.length > 0){ %>
+		<br />
+		<% for(var i = 0; i < tags.length; i++){ %><span data-tag="<%= tags[i] %>" class="tag"><%= tags[i] %> <span class="remove">[x]</span></span><% } %>
+	<% } %>
+</td>
+<td class="size">
+	<%== bytesToSize(size) %>
+</td>
+<td class="created">
+	<%= moment.calendar() %>
+</td>
+<td class="actions">
+	<div class="toolbar">
+		<a href="javascript://" class="action delete">Delete</a>
+	</div>
+</td>

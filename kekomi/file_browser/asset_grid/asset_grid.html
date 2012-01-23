@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html lang="en">
+	<head>
+		<title>Kekomi.FileBrowser.AssetGrid</title>
+        <style type='text/css'>
+            body {font-family: verdana}
+            .error {border: solid 1px red;}
+            .error_text { color: red; font-size: 10px;}
+            td {padding: 3px;}
+        </style>
+	</head>
+	<body>
+	    <h1>Kekomi.FileBrowser.AssetGrid Demo</h1>
+		<div id='asset_grid'></div>
+		<script type='text/javascript' 
+                src='../../../steal/steal.js'>
+        </script>
+		<script type='text/javascript'>
+			steal('kekomi/file_browser/asset_grid',function(){
+				
+				$('#asset_grid').kekomi_file_browser_asset_grid();
+			})
+		</script>
+	</body>
+</html>

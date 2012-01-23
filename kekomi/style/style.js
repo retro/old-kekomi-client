@@ -1,0 +1,1 @@
+steal('./reset.css', './jqueryui-theme/jquery-ui-1.8.17.custom.css', 'steal/less').then('./style.less')

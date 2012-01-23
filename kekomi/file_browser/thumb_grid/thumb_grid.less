@@ -1,0 +1,115 @@
+@import "../../style/elements/elements.less";
+
+.kekomi_file_browser_thumb_grid {
+	.thumb-grid-toolbar {
+		position: absolute;
+		height: 29px;
+		border-bottom: 1px solid #303030;
+		top: 0;
+		left: 0;
+		right: 0;
+		font-weight: bold;
+		.gradient(#222, #111, #222);
+		color: white;
+		font-size: 12px;
+	}
+	.sort-wrapper {
+		margin: 2px 0 0 10px;
+		float: left;
+	}
+	.thumb-grid {
+		top: 30px;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		overflow-y: auto;
+		overflow-x: hidden;
+		position: absolute;
+		padding: 5px;
+		font-size: 12.3px;
+	}
+	.thumb {
+		width: 13em;
+		height: 13em;
+		float: left;
+		background: #1c1c1c;
+		padding: 1px 1px 31px;
+		.rounded(3px);
+		position: relative;
+		margin: 5px;
+		outline: none;
+		&:hover {
+			background: #111;
+		}
+		&.activated {
+			background: #131313;
+			border: 1px solid #ad3500;
+			padding: 0 0 30px;
+		}
+		.img {
+			width: 12em;
+			height: 12em;
+			padding: 0.5em;
+			vertical-align: middle;
+			display: table-cell;
+			text-align: center;
+			img {
+				max-width: 100%;
+				max-height: 100%;
+				&.icon {
+					opacity: 0.5;
+				}
+			}
+		}
+		.name {
+			color: #ccc;
+			font-size: 10px;
+			text-align: center;
+			height: 30px;
+			line-height: 13px;
+			width: 100%;
+			display: table;
+			border-top: 1px solid #222;
+			p {
+				display: table-cell;
+				vertical-align: middle;
+				margin: 0 5px;
+			}
+		}
+	}
+	.slider-wrapper {
+		float: right;
+		position: relative;
+		width: 227px;
+		height: 16px;
+		margin-right: 10px;
+		margin-top: 6px;
+		.slider-bar {
+			z-index: 1;
+			background: #333;
+			width: 225px;
+			height: 10px;
+			margin-top: 2px;
+			position: absolute;
+			border: 1px solid #000;
+			.rounded(5px);
+			.gradient(#333, #333, #262626);
+			-webkit-box-shadow: 0px 1px 0 0 rgba(255,255,255,0.1), inset 0 0 2px 0 rgba(0,0,0,0.2);
+			-moz-box-shadow: 0px 1px 0 0 rgba(255,255,255,0.1), inset 0 0 2px 0 rgba(0,0,0,0.2);
+			box-shadow: 0px 1px 0 0 rgba(255,255,255,0.1), inset 0 0 2px 0 rgba(0,0,0,0.2);
+		}
+		.slider {
+			width:14px;
+			height: 14px;
+			.rounded(10px);
+			position: relative;
+			z-index: 2;
+			background: url(images/knob.png);
+			background-position: 50% 50%;
+			border: 1px solid #000;
+			.box-shadow(0px 1px 1px 0 rgba(0,0,0,0.4));
+			cursor: pointer;
+		}
+	}
+
+}
