@@ -43,8 +43,7 @@
 		}
 		&.activated {
 			background: #131313;
-			border: 1px solid #ad3500;
-			padding: 0 0 30px;
+			outline: 1px solid #ad3500;
 		}
 		.img {
 			width: 12em;
@@ -54,8 +53,8 @@
 			display: table-cell;
 			text-align: center;
 			img {
-				max-width: 100%;
-				max-height: 100%;
+				max-width: 12em;
+				max-height: 12em;
 				&.icon {
 					opacity: 0.5;
 				}
@@ -84,7 +83,7 @@
 		height: 16px;
 		margin-right: 10px;
 		margin-top: 6px;
-		.slider-bar {
+		.slider-bar, .slider-progress {
 			z-index: 1;
 			background: #333;
 			width: 225px;
@@ -97,6 +96,12 @@
 			-webkit-box-shadow: 0px 1px 0 0 rgba(255,255,255,0.1), inset 0 0 2px 0 rgba(0,0,0,0.2);
 			-moz-box-shadow: 0px 1px 0 0 rgba(255,255,255,0.1), inset 0 0 2px 0 rgba(0,0,0,0.2);
 			box-shadow: 0px 1px 0 0 rgba(255,255,255,0.1), inset 0 0 2px 0 rgba(0,0,0,0.2);
+		}
+		.slider-progress {
+			border: none;
+			margin-top: 3px;
+			background: rgba(0,0,0,0.3);
+			width: 0;
 		}
 		.slider {
 			width:14px;

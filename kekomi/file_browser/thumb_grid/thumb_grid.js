@@ -31,6 +31,21 @@ $.Controller('Kekomi.FileBrowser.ThumbGrid',
 			contained: true,
 			val: 123
 		});
+		var c = $('.slider').controllers()[0];
+			this._sliderParams = {
+			widthOfSpot : c.widthOfSpot,
+			min : c.options.min
+		};
+		this.setSliderProgress(123);
+		this.bind(this.find('.thumb-grid'), 'scroll',  'foreverScroll');
+		
+	},
+	foreverScroll : function(el, ev){
+		if(el[0].scrollHeight - (el[0].clientHeight + el.scrollTop()) < 100){
+			if(this.options.params.canMoveNext() && !this.options.params.attr('updating')){
+				this.options.params.next();
+			}
+		}
 	},
 	'{params} updated.attr' : function(params, ev, attr, val, oldVal){
 		if(attr !== 'count' && attr !== 'updating'){
@@ -105,16 +120,26 @@ $.Controller('Kekomi.FileBrowser.ThumbGrid',
   },
   ".slider changing" : function(el, ev, val){
   	this.find('.thumb-grid').css('font-size', (val / 10) + "px");
+  	this.setSliderProgress(val);
+  },
+  ".slider change" : function(el, ev, val){
+  	this.find('.thumb-grid').css('font-size', (val / 10) + "px");
+  	this.setSliderProgress(val);
   },
   ".slider-wrapper click" : function(el, ev){
-  	if($(ev.srcElement).is('.slider-wrapper') || $(ev.srcElement).is('.slider-bar')){
-  		var val = this.find('.slider')
-  			.css('left', (ev.offsetX - 4) + 'px')
-  			.mxui_nav_slider('determineValue')
-  			.controllers()[0].value;
+
+  	var target = $(ev.target);
+  	if(target.is('.slider-wrapper') || target.is('.slider-bar') || target.is('.slider-progress')){
+  		var val = this.find('.slider').css('left', (ev.pageX - el.offset().left - 4) + 'px')
+						  			.mxui_nav_slider('determineValue')
+						  			.controllers()[0].value;
   		this.find('.thumb-grid').css('font-size', (val / 10) + "px");
+  		this.setSliderProgress(val);
   	}
-  	
+  },
+  setSliderProgress : function(val){
+  	var width = this._sliderParams.widthOfSpot * val - this._sliderParams.min;
+  	this.find('.slider-progress').css('width', parseInt(width + 5));
   }
 })
 

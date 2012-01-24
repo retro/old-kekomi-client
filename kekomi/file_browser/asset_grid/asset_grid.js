@@ -39,7 +39,15 @@ $.Controller('Kekomi.FileBrowser.AssetGrid',
 			selectable: false
 		})
 		this.find('.scrollBody tbody').kekomi_file_browser_asset_grid_selectable();
-	}
+		this.bind(this.find('.scrollBody'), 'scroll', 'foreverScroll');
+	},
+	foreverScroll : function(el, ev){
+		if(el[0].scrollHeight - (el[0].clientHeight + el.scrollTop()) < 100){
+			if(this.options.gridParams.canMoveNext() && !this.options.gridParams.attr('updating')){
+				this.options.gridParams.next();
+			}
+		}
+	},
 })
 
 });

@@ -13,7 +13,8 @@ steal(
 'kekomi/file_browser/asset_grid',
 'kekomi/file_browser/thumb_grid',
 'jquery/dom/route',
-'mxui/form/input_watermark'
+'mxui/form/input_watermark',
+'kekomi/vendor/scrollto'
 ).then( 
 './views/init.ejs', 
 './file_browser.less',
@@ -32,7 +33,6 @@ $.Controller('Kekomi.FileBrowser',
 /** @Static */
 {
 	defaults : {
-		display: "list",
 		assetParams : new Mxui.Data({
 			limit: 100
 		})
@@ -42,20 +42,15 @@ $.Controller('Kekomi.FileBrowser',
 /** @Prototype */
 {
 	init : function(){
+		this.layout = 'list';
 		this.element.html("//kekomi/file_browser/views/init.ejs", {});
+		this.setupGrid();
 		this.find('.folders ul').kekomi_file_browser_folder_tree();
-		this.find('.grid-wrapper').kekomi_file_browser_asset_grid({
-			gridParams : this.options.assetParams
-		});
-		this.find('.thumb-grid-wrapper').kekomi_file_browser_thumb_grid({
-			params: this.options.assetParams
-		})
+
 		this.find('.search input').mxui_form_input_watermark({
 			defaultText: "Search",
 			replaceOnFocus: true
 		});
-		this.bind(this.find('.scrollBody'), 'scroll',  'foreverScroll');
-		this.bind(this.find('.thumb-grid'), 'scroll',  'foreverScroll');
 		this.find('.spinner').spin({
 			lines: 10,
 			length:6,
@@ -127,14 +122,6 @@ $.Controller('Kekomi.FileBrowser',
 			this.find('.clear-search').hide();
 		}
 	},
-	foreverScroll : function(el, ev){
-		console.log('scroll')
-		if(el[0].scrollHeight - (el[0].clientHeight + el.scrollTop()) < 100){
-			if(this.options.assetParams.canMoveNext() && !this.options.assetParams.attr('updating')){
-				this.options.assetParams.next();
-			}
-		}
-	},
 	toggleSpinner: function(show){
 		var loading = this.find('.spinner');
 		if(show){
@@ -170,15 +157,51 @@ $.Controller('Kekomi.FileBrowser',
 	},
 	'.layout click' : function(el, ev){
 		if(el.hasClass('selected')) return;
-		if(el.data('layout') == 'list'){
-			this.find('.kekomi_file_browser_asset_grid').show().trigger('resize');
-			this.find('.kekomi_file_browser_thumb_grid').hide();
-		} else {
-			this.find('.kekomi_file_browser_thumb_grid').show().trigger('resize');
-			this.find('.kekomi_file_browser_asset_grid').hide();
-		}
+		this.layout = el.data('layout');
+		this.setupGrid();
 		this.find('.layout-switch .selected').removeClass('selected');
 		el.addClass('selected');
+	},
+	setupGrid : function(){
+		var assetEls = this.find('.asset'),
+				assets = assetEls.models(),
+				activated = this.find('.activated').models(),
+				scrollTo,
+				scrollEl = this.layout == "list" ? '.thumb-grid' : '.scrollBody',
+				scrollToEl = this.layout == "list" ? '.scrollBody' : '.thumb-grid',
+				scrollTop = $(scrollEl).scrollTop();
+		if(scrollTop > 0){
+			for(var i = 0; i < assetEls.length; i++){ 
+				var el = $(assetEls[i]);
+				if(el.offset().top > 0){
+					scrollTo = "." + el.model().identity();
+					break;
+				}
+			}
+		}
+		if(this.layout == "list"){
+			this.find('.display-area').html('<div class="grid-wrapper"></div>');
+			this.find('.grid-wrapper').kekomi_file_browser_asset_grid({
+				gridParams : this.options.assetParams
+			});
+			if(assets.length > 0){
+				this.find('.mxui_data_grid').mxui_data_grid('list', true, assets);
+			}
+		} else if(this.layout == "grid"){
+			this.find('.display-area').html('<div class="thumb-grid-wrapper"></div>');
+			this.find('.thumb-grid-wrapper').kekomi_file_browser_thumb_grid({
+				params: this.options.assetParams
+			})
+			if(assets.length > 0){
+				this.find('.kekomi_file_browser_thumb_grid').kekomi_file_browser_thumb_grid('list', true, assets);
+			}
+		}
+		if(activated.length > 0){
+			activated.elements(this.element).addClass('activated').find('input[type=checkbox]').prop('checked', true);
+		}
+		if(scrollTo){
+			$(scrollToEl).scrollTo(this.find(scrollTo));
+		}
 	}
 })
 
