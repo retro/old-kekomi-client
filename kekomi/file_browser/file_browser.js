@@ -14,7 +14,10 @@ steal(
 'kekomi/file_browser/thumb_grid',
 'jquery/dom/route',
 'mxui/form/input_watermark',
-'kekomi/vendor/scrollto'
+'kekomi/vendor/scrollto',
+'jquery/event/drag',
+'jquery/event/drag/scroll',
+'kekomi/file_browser/dragged'
 ).then( 
 './views/init.ejs', 
 './file_browser.less',
@@ -34,7 +37,7 @@ $.Controller('Kekomi.FileBrowser',
 {
 	defaults : {
 		assetParams : new Mxui.Data({
-			limit: 100
+			limit: 50
 		})
 	},
 	listensTo : ['activate', 'deactivate']
@@ -42,11 +45,10 @@ $.Controller('Kekomi.FileBrowser',
 /** @Prototype */
 {
 	init : function(){
-		this.layout = 'list';
+		this.layout = 'grid';
 		this.element.html("//kekomi/file_browser/views/init.ejs", {});
 		this.setupGrid();
 		this.find('.folders ul').kekomi_file_browser_folder_tree();
-
 		this.find('.search input').mxui_form_input_watermark({
 			defaultText: "Search",
 			replaceOnFocus: true
@@ -58,6 +60,7 @@ $.Controller('Kekomi.FileBrowser',
 			radius: 7
 		});
 		this.options.assetParams.attr('order', ['name asc']);
+		this.find('.dragged').kekomi_file_browser_dragged();
 	},
 	"{$.route} folder change" : function(route, ev, attr, how, newVal, oldVal){
 		this.empty();
@@ -91,9 +94,7 @@ $.Controller('Kekomi.FileBrowser',
 		this.find('.types .selected').removeClass('selected');
 		el.addClass('selected');
 		if(type == "all"){
-			this.options.assetParams.attr('updating', true);
-			this.options.assetParams.removeAttr('type');
-			this.options.assetParams.attrs({offset: 0, updating: false});
+			this.options.assetParams.attrs({offset: 0, type: null});
 		} else {
 			this.options.assetParams.attrs({type: type, offset: 0});
 		}
@@ -104,21 +105,22 @@ $.Controller('Kekomi.FileBrowser',
 		this.search(el);
 	},
 	".search input keyup" : function(el, ev){
-		this.search(el)
+		var self = this;
+		clearTimeout(this._searchTimeout);
+		this._searchTimeout = setTimeout(function(){
+			self.search(el)
+		}, 200);
 	},
 	".search .clear-search click" : function(el, ev){
 		this.find('.search input').val('').trigger('change').trigger('blur');
 	},
 	search: function(el){
 		var val = el.val();
-		this.empty();
 		if(val != ""){
 			this.options.assetParams.attrs({key: val, offset: 0});
 			this.find('.clear-search').show();
 		} else {
-			this.options.assetParams.attr('updating', true)
-			this.options.assetParams.removeAttr('key');
-			this.options.assetParams.attrs({offset: 0, updating: false});
+			this.options.assetParams.attrs({offset: 0, key: null});
 			this.find('.clear-search').hide();
 		}
 	},
@@ -135,8 +137,8 @@ $.Controller('Kekomi.FileBrowser',
 		this.find('.kekomi_file_browser_thumb_grid').kekomi_file_browser_thumb_grid('empty');
 	},
 	"{assetParams} updated.attr" : function(data, ev, attr, newVal, oldVal){
-		if(attr == "order" || attr == "type"){
-			this.empty()
+		if(attr == "order" || attr == "type" || attr == "key"){
+			this.empty();
 		}
 		if(attr == "updating"){
 			this.toggleSpinner(newVal);
@@ -144,6 +146,8 @@ $.Controller('Kekomi.FileBrowser',
 				this.find('.no-data').hide();
 			} else if(data.count == 0){
 				this.find('.no-data').show();
+			} else {
+				this.markActive();
 			}
 		}
 		if(attr == "count"){
@@ -152,8 +156,16 @@ $.Controller('Kekomi.FileBrowser',
 		}
 	},
 	"{Kekomi.Models.Asset} destroyed" : function(Asset, ev, asset){
-		var count = this.options.assetParams.attr('count') - 1;
-		this.options.assetParams.attr('count', count);
+		this.options.assetParams.attr('count', (this.options.assetParams.attr('count') - 1));
+		this.activate();
+	},
+	"{Kekomi.Models.Asset} updated" : function(Asset, ev, asset){
+		var folder_id = $.route.attr('folder');
+		if(folder_id && asset.folder_id != folder_id){
+			asset.elements(this.element).remove();
+			this.options.assetParams.attr('count', (this.options.assetParams.attr('count') - 1));
+		}
+		this.activate();
 	},
 	'.layout click' : function(el, ev){
 		if(el.hasClass('selected')) return;
@@ -165,7 +177,6 @@ $.Controller('Kekomi.FileBrowser',
 	setupGrid : function(){
 		var assetEls = this.find('.asset'),
 				assets = assetEls.models(),
-				activated = this.find('.activated').models(),
 				scrollTo,
 				scrollEl = this.layout == "list" ? '.thumb-grid' : '.scrollBody',
 				scrollToEl = this.layout == "list" ? '.scrollBody' : '.thumb-grid',
@@ -196,12 +207,37 @@ $.Controller('Kekomi.FileBrowser',
 				this.find('.kekomi_file_browser_thumb_grid').kekomi_file_browser_thumb_grid('list', true, assets);
 			}
 		}
-		if(activated.length > 0){
-			activated.elements(this.element).addClass('activated').find('input[type=checkbox]').prop('checked', true);
-		}
+		this.markActive();
 		if(scrollTo){
 			$(scrollToEl).scrollTo(this.find(scrollTo));
 		}
+	},
+	markActive : function(){
+		if(this._activated){
+			setTimeout(this.proxy(function(){
+				this._activated.elements(this.element)
+					.addClass('activated')
+					.find('input[type=checkbox]').prop('checked', true);
+					this.activate();
+			}), 1);
+		}
+	},
+	activate : function(){
+		this._activated = this.find('.activated').models();
+	},
+	deactivate : function(){
+		this._activated = this.find('.activated').models();
+	},
+	'.asset draginit' : function(el, ev, drag){
+		if(!el.is('.activated')){
+			this.find('.activated').trigger('deactivate');
+			el.trigger('activate');
+		}
+		drag.representative(this.find('.dragged').kekomi_file_browser_dragged({
+			assets: this._activated
+		}), 10, 10);
+		drag.scrolls(this.find('.folders'))
+		
 	}
 })
 

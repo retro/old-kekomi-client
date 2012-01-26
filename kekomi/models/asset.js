@@ -9,11 +9,24 @@ steal('jquery/model', 'jquery/model/list', 'kekomi/vendor/moment', function(){
 $.Model('Kekomi.Models.Asset',
 /* @Static */
 {
-	findAll: "/assets.json",
 	findOne : "/assets/{id}.json", 
 	create : "/assets.json",
 	update : "/assets/{id}.json",
 	destroy : "/assets/{id}.json",
+
+	findAll : function(params, success, error){
+		if(params.key === null) delete params.key;
+		if(params.type === null) delete params.type;
+		return $.ajax({
+			url: '/assets.json',
+			type: 'get',
+			dataType: 'json asset.models',
+			data: params,
+			success: success,
+			error: error,
+			fixture: "-assets"
+		})
+	},
 
 	attributes : {
 		name       : 'string',

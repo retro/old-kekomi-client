@@ -100,15 +100,15 @@
 			.rounded(0px);
 			padding: 0;
 			margin: 7px 0 0 -1px;
-			width: 19px;
-			height: 20px;
+			width: 23px;
+			height: 21px;
 			.icon {
 				display: block;
-				width: 19px;
-				height: 18px;
+				width: 23px;
+				height: 21px;
 				background: url(images/layout_switch.png);
 				background-repeat: no-repeat;
-				background-position: 4px 7px;
+				background-position: 6px 7px;
 				opacity: 0.6;
 			}
 			&:hover .icon {
@@ -120,7 +120,7 @@
 			&:last-child {
 				.border-radius(2px, 2px, 0, 0);
 				.icon {
-					background-position: -85px 7px;
+					background-position: -83px 7px;
 				}
 			}
 		}
@@ -147,7 +147,7 @@
 		margin: 5px 10px 5px 10px;
 		.clear-search {
 			float: right;
-			margin: -21px 4px 0 0;
+			margin: -22px 4px 0 0;
 			opacity: 0.4;
 			cursor: pointer;
 			display: none;
@@ -186,8 +186,8 @@
 		top: 50%;
 		margin-top: 13px;
 		margin-left: -25px;
-		color: white;
-		background: rgba(0,0,0,0.2);
+		color: black;
+		background: rgba(255,255,255,0.8);
 		.rounded(5px);
 	}
 	.no-data {
@@ -217,6 +217,60 @@
 			border: 1px solid #0f0f0f;
 			.box-shadow(0 1px 0 0 rgba(255,255,255,0.1));
 			.rounded(30px);
+		}
+	}
+	.dragged {
+		width: 60px;
+		height: 60px;
+		position: absolute;
+		top: 10px;
+		right: 10px;
+		z-index: 1000;
+		.gradient(#ededed, #ededed, #fff);
+		.rounded(2px);
+		border: 1px solid white;
+		padding: 5px;
+		text-align: center;
+		.box-shadow(0 0px 3px 0 rgba(0,0,0,0.5));
+		.counter-wrap {
+			margin-top: -2px;
+		}
+		.counter {
+			.rounded(10px);
+			.gradient(#f14d00, #d54400, #f14d00);
+			border: 1px solid #c13e00;
+			font-size: 10px;
+			font-weight: bold;
+			font-family: Helvetica, Arial, sans-serif; 
+			padding: 1px 5px 2px;
+			color: white;
+			display: inline-block;
+			.box-shadow(0 1px 0 0 #fff);
+			text-shadow: 0 1px rgba(0,0,0,0.5);
+			max-width: 48px;
+			overflow: hidden;
+		}
+		.img {
+			width: 62px;
+			height: 44px;
+			vertical-align: middle;
+			display: table-cell;
+			text-align: center;
+			img {
+				max-width: 62px;
+				max-height: 44px;
+				&.icon {
+					opacity: 0.5;
+				}
+			}
+		}
+		.img-overlay {
+			position: absolute;
+			width: 62px;
+			height: 44px;
+			position: absolute;
+			top: 5px;
+			left: 5px;
 		}
 	}
 }

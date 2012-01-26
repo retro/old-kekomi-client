@@ -20,25 +20,31 @@ $.Controller('Kekomi.FileBrowser.ThumbGrid',
 /** @Prototype */
 {
 	init : function(){
+		
 		this.element.html("//kekomi/file_browser/thumb_grid/views/init.ejs", {});
 		this.find('.thumb-grid').mxui_nav_selectable({
-			outsideDeactivate : false
+			outsideDeactivate : false,
 		});
+		if(this.options.params.order && this.options.params.order.length > 1){
+			var sort = this.options.params.order[0].split(' ');
+			this.find('.sort-field').val(sort[0]);
+			this.find('.sort-direction').val(sort[1]);
+		}
+		
 		$('.slider').mxui_nav_slider({
 			min: 60,
 			max: 250,
 			interval: 1,
 			contained: true,
-			val: 123
+			val: 120
 		});
 		var c = $('.slider').controllers()[0];
 			this._sliderParams = {
 			widthOfSpot : c.widthOfSpot,
 			min : c.options.min
 		};
-		this.setSliderProgress(123);
+		this.setSliderProgress(120);
 		this.bind(this.find('.thumb-grid'), 'scroll',  'foreverScroll');
-		
 	},
 	foreverScroll : function(el, ev){
 		if(el[0].scrollHeight - (el[0].clientHeight + el.scrollTop()) < 100){
@@ -66,10 +72,12 @@ $.Controller('Kekomi.FileBrowser.ThumbGrid',
 		if(clear){
 			this.empty();
 		}
-		
 		this.find('.thumb-grid').append(thumbs);
 		// update the items
-		this.options.params.attr('count',items.count)
+		this.options.params.attr('count',items.count);
+		if(this.options.params.canMoveNext() && !this.isGridFilled()){
+			this.options.params.next();
+		}
 	},
 	newRequest : function(attr, val){
 		var clear = true; 
@@ -82,65 +90,69 @@ $.Controller('Kekomi.FileBrowser.ThumbGrid',
 		this.find('.thumb-grid').html("");
 	},
 	/**
-   * Listen for updates and replace the text of the list
-   * @param {Object} called
-   * @param {Object} item
-   */
-  "{model} updated" : function(model, ev, item){
-      var el = item.elements(this.element).html(this.options.row, item);
-      if(this.options.updated){
-          this.options.updated(this.element, el, item)
-      }
+	 * Listen for updates and replace the text of the list
+	 * @param {Object} called
+	 * @param {Object} item
+	 */
+	"{model} updated" : function(model, ev, item){
+			var el = item.elements(this.element).html(this.options.row, item);
+			if(this.options.updated){
+					this.options.updated(this.element, el, item)
+			}
 	this.element.resize()
-  },
-  "{model} created" : function(model, ev, item){
-      var newEl = $($.View("//mxui/data/grid/views/list",{
-          items : [item],
-          row: this.options.row
-      }))
-      if(this.options.append){
-          this.options.append(this.element, newEl, item)
-      }else{
-          this.append(newEl)
+	},
+	"{model} created" : function(model, ev, item){
+			var newEl = $($.View("//mxui/data/grid/views/list",{
+					items : [item],
+					row: this.options.row
+			}))
+			if(this.options.append){
+					this.options.append(this.element, newEl, item)
+			}else{
+					this.append(newEl)
 		//newEl.appendTo(this.element).slideDown();
-      }
-  },
-  "{model} destroyed" : function(model, ev, item){
-    var el = item.elements(this.element);
-    el.remove();
-  },
-  order : function(){
-  	this.options.params.attr('order', [$('.sort-field').val() + " " + $('.sort-direction').val()]);
-  },
-  ".sort-field change" : function(){
-  	this.order();
-  },
-  ".sort-direction change" : function(){
-  	this.order();
-  },
-  ".slider changing" : function(el, ev, val){
-  	this.find('.thumb-grid').css('font-size', (val / 10) + "px");
-  	this.setSliderProgress(val);
-  },
-  ".slider change" : function(el, ev, val){
-  	this.find('.thumb-grid').css('font-size', (val / 10) + "px");
-  	this.setSliderProgress(val);
-  },
-  ".slider-wrapper click" : function(el, ev){
+			}
+	},
+	"{model} destroyed" : function(model, ev, item){
+		var el = item.elements(this.element);
+		el.remove();
+	},
+	order : function(){
+		this.options.params.attr('order', [$('.sort-field').val() + " " + $('.sort-direction').val()]);
+	},
+	isGridFilled : function(){
+		var el = this.find('.thumb-grid')[0];
+		return el.scrollHeight > el.offsetHeight;
+	},
+	".sort-field change" : function(){
+		this.order();
+	},
+	".sort-direction change" : function(){
+		this.order();
+	},
+	".slider changing" : function(el, ev, val){
+		this.find('.thumb-grid').css('font-size', (val / 10) + "px");
+		this.setSliderProgress(val);
+	},
+	".slider change" : function(el, ev, val){
+		this.find('.thumb-grid').css('font-size', (val / 10) + "px");
+		this.setSliderProgress(val);
+	},
+	".slider-wrapper click" : function(el, ev){
 
-  	var target = $(ev.target);
-  	if(target.is('.slider-wrapper') || target.is('.slider-bar') || target.is('.slider-progress')){
-  		var val = this.find('.slider').css('left', (ev.pageX - el.offset().left - 4) + 'px')
-						  			.mxui_nav_slider('determineValue')
-						  			.controllers()[0].value;
-  		this.find('.thumb-grid').css('font-size', (val / 10) + "px");
-  		this.setSliderProgress(val);
-  	}
-  },
-  setSliderProgress : function(val){
-  	var width = this._sliderParams.widthOfSpot * val - this._sliderParams.min;
-  	this.find('.slider-progress').css('width', parseInt(width + 5));
-  }
+		var target = $(ev.target);
+		if(target.is('.slider-wrapper') || target.is('.slider-bar') || target.is('.slider-progress')){
+			var val = this.find('.slider').css('left', (ev.pageX - el.offset().left - 4) + 'px')
+										.mxui_nav_slider('determineValue')
+										.controllers()[0].value;
+			this.find('.thumb-grid').css('font-size', (val / 10) + "px");
+			this.setSliderProgress(val);
+		}
+	},
+	setSliderProgress : function(val){
+		var width = this._sliderParams.widthOfSpot * val - this._sliderParams.min;
+		this.find('.slider-progress').css('width', parseInt(width + 5));
+	}
 })
 
 });

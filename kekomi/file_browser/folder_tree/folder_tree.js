@@ -4,7 +4,8 @@ steal(
 'mxui/data/tree',
 'kekomi/models/asset_folder.js',
 'steal/less',
-'jquery/dom/route'
+'jquery/dom/route',
+'jquery/event/drop'
 ).then('./views/list.ejs', './folder_tree.less', function($){
 
 
@@ -45,6 +46,21 @@ $.Controller('Kekomi.FileBrowser.FolderTree',
 	},
 	"{$.route} folder remove" : function(route, ev){
 		this.find('.active').removeClass('active')
+	},
+	".name-wrapper dropover" : function(el, ev, drop, drag){
+		el.addClass('drop');
+	},
+	".name-wrapper dropout" : function(el, ev, drop, drag){
+		el.removeClass('drop');
+	},
+	".name-wrapper dropon" : function(el, ev, drop, drag){
+		el.removeClass('drop');
+		var assets = drag.movingElement.data('assets'),
+				folder = el.find('.asset_folder').model();
+		for(var i = 0; i < assets.length; i++){
+			assets[i].attr('folder_id', folder.id);
+			assets[i].save();
+		}
 	}
 })
 
