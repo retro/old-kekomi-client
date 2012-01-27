@@ -7,13 +7,15 @@ steal( 'jquery/controller','jquery/view/ejs', 'jquery/event/key', 'widgets/autog
 $.Controller('Widgets.InlineEdit',
 /** @Static */
 {
-	defaults : {},
+	defaults : {
+		activate : "click"
+	},
 	pluginName : 'inline_edit'
 },
 /** @Prototype */
 {
 	init : function(){
-		this.wasEdited = false;
+		this._wasEdited = false;
 		this.isSaving  = false;
 		this.render();
 	},
@@ -23,7 +25,7 @@ $.Controller('Widgets.InlineEdit',
 		ev.stopPropagation();
 	},
 	"input[type=text] keyup" : function(el, ev){
-		if(ev.key() == 'escape'){
+		if(ev.keyName() == 'escape' || ev.which == 13){
 			el.blur();
 		}
 	},
@@ -35,7 +37,7 @@ $.Controller('Widgets.InlineEdit',
 		this.updateValue();
 	},
 	"input[type=text] change" : function(el){
-		this.wasEdited = true;
+		this._wasEdited = true;
 		this.options.model.attr(this.options.attr, el.val());
 	},
 	"textarea click" : function(el, ev){
@@ -46,10 +48,10 @@ $.Controller('Widgets.InlineEdit',
 		this.updateValue(el.val());
 	},
 	"textarea change" : function(el){
-		this.wasEdited = true;
+		this._wasEdited = true;
 		this.options.model.attr(this.options.attr, el.val());
 	},
-	click : function(el, ev){
+	"{activate}" : function(el, ev){
 		ev.stopPropagation();
 		ev.stopImmediatePropagation();
 		if(this.element.find('input, textarea').length == 0) {
@@ -58,19 +60,21 @@ $.Controller('Widgets.InlineEdit',
 				value: this.options.model.attr(this.options.attr), 
 				attr: this.options.attr,
 				options: this.options
-			});
+			}).addClass('editing');
 			this.find('input, textarea').focus();
 		}
 	},
 	updateValue : function(){
-		if(this.wasEdited && !this.isSaving){
+		if(this._wasEdited && !this.isSaving){
 			var val  = this.find('input, textarea').val(),
 			    self = this;
 			this.isSaving = true;
 			this.options.model.save(function(){
-				self.wasEdited = false;
+				self._wasEdited = false;
 				self.isSaving = false;
 			});
+		} else {
+			this.element.trigger('noChange', this.options.model);
 		}
 		this.render();
 	},
@@ -79,9 +83,15 @@ $.Controller('Widgets.InlineEdit',
 		    isEmpty = (!!!value || value == "null");
 		if(this.element){
 			if(isEmpty){
-				this.element.html(this.emptyTemplate(), {model: this.options.model});
+				this.element.html(this.emptyTemplate(), {
+					model: this.options.model
+				}).removeClass('editing');
 			} else {
-				this.element.html(this.rendererTemplate(), {model: this.options.model, value: value, attr: this.options.attr});
+				this.element.html(this.rendererTemplate(), {
+					model: this.options.model,
+					value: value,
+					attr: this.options.attr
+				}).removeClass('editing');
 			}
 		}
 	},
@@ -99,6 +109,9 @@ $.Controller('Widgets.InlineEdit',
 			return "//widgets/inline_edit/views/inputs/textarea.ejs";
 		}
 		return "//widgets/inline_edit/views/inputs/string.ejs";
+	},
+	wasEdited : function(){
+		return this._wasEdited;
 	}
 })
 

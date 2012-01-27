@@ -89,17 +89,10 @@ $.Controller('Kekomi.FileBrowser.ThumbGrid',
 	empty : function(){
 		this.find('.thumb-grid').html("");
 	},
-	/**
-	 * Listen for updates and replace the text of the list
-	 * @param {Object} called
-	 * @param {Object} item
-	 */
 	"{model} updated" : function(model, ev, item){
-			var el = item.elements(this.element).html(this.options.row, item);
-			if(this.options.updated){
-					this.options.updated(this.element, el, item)
-			}
-	this.element.resize()
+
+		var el = item.elements(this.element).html("//kekomi/file_browser/thumb_grid/views/item.ejs", item);
+		this.element.resize()
 	},
 	"{model} created" : function(model, ev, item){
 			var newEl = $($.View("//mxui/data/grid/views/list",{

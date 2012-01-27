@@ -51,7 +51,7 @@ $.Controller('Kekomi.FileBrowser',
 		this.layout = 'list';
 		this.element.html("//kekomi/file_browser/views/init.ejs", {});
 		this.setupGrid();
-		this.find('.folders ul').kekomi_file_browser_folder_tree();
+		this.find('.folders').kekomi_file_browser_folder_tree();
 		this.find('.search input').mxui_form_input_watermark({
 			defaultText: "Search",
 			replaceOnFocus: true
@@ -68,7 +68,8 @@ $.Controller('Kekomi.FileBrowser',
 			assetParams : this.options.assetParams
 		});
 		this.find('.preview').kekomi_file_browser_preview({
-			activated: this.options.activated
+			activated: this.options.activated,
+			assetParams: this.options.assetParams
 		})
 	},
 	"{$.route} folder change" : function(route, ev, attr, how, newVal, oldVal){
@@ -80,9 +81,11 @@ $.Controller('Kekomi.FileBrowser',
 		}
 	},
 	".delete-selected.action click" : function(el, ev){
-		if(this.options.activated.length > 0){
-			for(var i = 0; i < this.options.activated.length; i++){
-				this.options.activated[i].destroy();
+		if(confirm('Are you sure?')){
+			if(this.options.activated.length > 0){
+				for(var i = 0; i < this.options.activated.length; i++){
+					this.options.activated[i].destroy();
+				}
 			}
 		}
 	},
@@ -223,11 +226,11 @@ $.Controller('Kekomi.FileBrowser',
 	markActive : function(){
 		if(this.options.activated.length > 0){
 			setTimeout(this.proxy(function(){
-				var elements    = this.options.activated.elements(this.element),
+				var elements    = this.options.activated.elements(this.element.find('.display-area')),
 						models      = new Kekomi.Models.Asset.List(elements.models()),
 						ids         = models.ids(),
 						missingIds  = this.options.activated.missing(ids).ids();
-				this.options.activated.remove(missingIds);
+				this.options.activated.remove.apply(this.options.activated, missingIds);
 				elements.addClass('activated')
 								.find('input[type=checkbox]').prop('checked', true);
 			}), 1);
@@ -235,14 +238,11 @@ $.Controller('Kekomi.FileBrowser',
 		}
 	},
 	activate : function(el, ev, items){
-		console.log(arguments)
 		var target    = $(ev.target),
 				activated = items || new Kekomi.Models.Asset.List([target.model()]);
-		console.log(activated, target, target.model())
 		if(activated){
 			this.options.activated.pushUnique(activated);
 		}
-		console.log(this.options.activated)
 	},
 	deactivate : function(el ,ev){
 		var target = $(ev.target);

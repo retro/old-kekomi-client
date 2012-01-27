@@ -1,0 +1,32 @@
+<div <%= asset %>>
+	<div class="header">
+		<div class="icon">
+			<% if(asset.type == "image"){ %>
+				<img class="icon" src="<%= steal.root.join("kekomi/style/images/cc/white/png/picture_icon&16.png") %>" />
+			<% } else if(asset.type == "document"){ %>
+				<img class="icon" src="<%= steal.root.join("kekomi/style/images/cc/white/png/doc_lines_icon&16.png") %>" />
+			<% } else if(asset.type == "video"){ %>
+				<img class="icon" src="<%= steal.root.join("kekomi/style/images/cc/white/png/movie_icon&16.png") %>" />
+			<% } %>
+		</div>
+		<%= types[asset.type] %> preview
+	</div>
+	<% if(asset.type == "image"){ %>
+		<div class="img"><img src="<%= asset.filename %>" /></div>
+	<% } %>
+	<div class="label">Filename</div>
+	<div class="inline-edit-wrapper ui-white-icons">
+		<div class="ui-icon ui-icon-pencil"></div>
+		<div <%= plugin('inline_edit', {model: asset, attr: 'name'}) %>></div>
+	</div>
+	<div class="label">Size</div>
+	<div class="attr-value"><%== bytesToSize(asset.size) %></div>
+	<div class="label">Created at</div>
+	<div class="attr-value"><%= asset.moment.calendar() %></div>
+	<div class="label">Content type</div>
+	<div class="attr-value"><%= asset.content_type %></div>
+	<div class="toolbar">
+		<a href="<%= asset.filename %>" target="_blank" class="action">Download file</a>
+	</div>
+</div>
+<div class="footer"></div>

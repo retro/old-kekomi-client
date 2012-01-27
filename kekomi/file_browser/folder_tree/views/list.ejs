@@ -6,7 +6,7 @@
 		<span class='ui-icon ui-icon-triangle-1-e ui-toggle' 
 			 style='visibility: <%= item.hasChildren && item.hasChildren() ? '' : 'hidden' %>' >
 		</span>
-		<span tabindex='0' <%= item %>><%= item.name %></span>
+		<span tabindex='0' <%= item %>><span <%= plugin('inline_edit', {model: this[i], attr: 'name', activate: 'edit'}) %>><%= item.name %></span></span>
 	</div>
 	<ul></ul>
  </li>

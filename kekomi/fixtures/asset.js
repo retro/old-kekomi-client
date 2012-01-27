@@ -17,7 +17,12 @@ steal('jquery/dom/fixture', function(){
 					"video"    : steal.root.join("kekomi/placeholders/video.flv")
 				},
 				filename     = placeholders[type],
-				folder_id    = Math.floor(Math.random()*31);
+				folder_id    = Math.floor(Math.random()*31),
+				contentTypes = {
+					"document" : "text/plain",
+					"image"    : "image/jpeg",
+					"video"    : "video/x-flv"
+				}
 		if(!assetFolders[folder_id]){
 			assetFolders[folder_id] = 0;
 		}
@@ -29,7 +34,8 @@ steal('jquery/dom/fixture', function(){
 			tags : assetTags,
 			filename : filename,
 			folder_id : folder_id,
-			created_at : "2011-07-16T19:20:30+01:00"
+			created_at : "2011-07-16T19:20:30+01:00",
+			content_type : contentTypes[type]
 		}
 	}, function(item, settings){
 		console.log(settings)

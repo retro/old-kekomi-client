@@ -1,3 +1,5 @@
 <% for(var i = 0; i < items.length; i++){ %>
-	<%== $.View('//kekomi/file_browser/thumb_grid/views/item.ejs', items[i]) %>
+	<div class="thumb" <%= items[i] %> tabindex="0">
+		<%== $.View('//kekomi/file_browser/thumb_grid/views/item.ejs', items[i]) %>
+	</div>
 <% } %>
