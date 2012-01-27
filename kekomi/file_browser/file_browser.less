@@ -13,6 +13,8 @@
 		left: 201px;
 		right: 201px;
 		position: absolute;
+		z-index: 2;
+		background: #222;
 	}
 	.grid-wrapper {
 		height: 100%;
@@ -41,6 +43,7 @@
 		left: auto;
 		right: 0px;
 		background: #202020;
+		color:white;
 	}
 	.top-toolbar,.footer {
 		position: absolute;
@@ -178,23 +181,33 @@
 			}
 		}
 	}
-	.spinner, .no-data {
+	.spinner, .no-data, .drag-drop-upload-notice {
 		position: absolute;
 		width: 50px;
 		height: 50px;
 		left: 50%;
 		top: 50%;
-		margin-top: 13px;
+		margin-top: -10px;
 		margin-left: -25px;
 		color: black;
 		background: rgba(255,255,255,0.8);
 		.rounded(5px);
 	}
-	.no-data {
+	.no-data, .drag-drop-upload-notice {
 		width: 500px;
 		margin-left: -250px;
 		text-align: center;
 		line-height: 50px;
+		display: none;
+		z-index: 1000;
+	}
+	.drag-drop-upload-area {
+		position: absolute;
+		top: 70px;
+		bottom: 39px;
+		left: 201px;
+		right: 201px;
+		z-index: 3;
 		display: none;
 	}
 	.upload-wrapper {
@@ -222,10 +235,7 @@
 	.dragged {
 		width: 60px;
 		height: 60px;
-		position: absolute;
-		top: 10px;
-		right: 10px;
-		z-index: 1000;
+		display: none;
 		.gradient(#ededed, #ededed, #fff);
 		.rounded(2px);
 		border: 1px solid white;

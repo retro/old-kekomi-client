@@ -1,0 +1,12 @@
+<div <%= this %>>
+	<div class="img">
+		<% if(type == "image"){ %>
+			<img src="<%= filename %>" />
+		<% } else if(type == "document"){ %>
+			<img class="icon" src="<%= steal.root.join("kekomi/style/images/cc/white/png/doc_lines_icon&32.png") %>" />
+		<% } else if(type == "video"){ %>
+			<img class="icon" src="<%= steal.root.join("kekomi/style/images/cc/white/png/movie_icon&32.png") %>" />
+		<% } %>
+	</div>
+	<div class="name"><p><%= name %></p></div>
+</div>

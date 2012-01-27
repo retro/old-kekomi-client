@@ -1,0 +1,5 @@
+<% if(options.grow === true){ %>
+  <div <%= plugin('widgets_autogrow') %>><textarea><%= (!value || value == "null") ? "" : value %></textarea></div>
+<% } else { %>
+  <textarea><%= (!value || value == "null") ? "" : value %></textarea>
+<% } %>

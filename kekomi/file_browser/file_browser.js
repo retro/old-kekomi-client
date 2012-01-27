@@ -17,7 +17,9 @@ steal(
 'kekomi/vendor/scrollto',
 'jquery/event/drag',
 'jquery/event/drag/scroll',
-'kekomi/file_browser/dragged'
+'kekomi/file_browser/dragged',
+'kekomi/file_browser/drag_drop_upload',
+'kekomi/file_browser/preview'
 ).then( 
 './views/init.ejs', 
 './file_browser.less',
@@ -38,14 +40,15 @@ $.Controller('Kekomi.FileBrowser',
 	defaults : {
 		assetParams : new Mxui.Data({
 			limit: 50
-		})
+		}),
+		activated : new Kekomi.Models.Asset.List
 	},
 	listensTo : ['activate', 'deactivate']
 },
 /** @Prototype */
 {
 	init : function(){
-		this.layout = 'grid';
+		this.layout = 'list';
 		this.element.html("//kekomi/file_browser/views/init.ejs", {});
 		this.setupGrid();
 		this.find('.folders ul').kekomi_file_browser_folder_tree();
@@ -61,6 +64,12 @@ $.Controller('Kekomi.FileBrowser',
 		});
 		this.options.assetParams.attr('order', ['name asc']);
 		this.find('.dragged').kekomi_file_browser_dragged();
+		this.find('.drag-drop-upload-area').kekomi_file_browser_drag_drop_upload({
+			assetParams : this.options.assetParams
+		});
+		this.find('.preview').kekomi_file_browser_preview({
+			activated: this.options.activated
+		})
 	},
 	"{$.route} folder change" : function(route, ev, attr, how, newVal, oldVal){
 		this.empty();
@@ -71,10 +80,9 @@ $.Controller('Kekomi.FileBrowser',
 		}
 	},
 	".delete-selected.action click" : function(el, ev){
-		var models = this.find('.activated').models();
-		if(models.length > 0){
-			for(var i = 0; i < models.length; i++){
-				models[i].destroy();
+		if(this.options.activated.length > 0){
+			for(var i = 0; i < this.options.activated.length; i++){
+				this.options.activated[i].destroy();
 			}
 		}
 	},
@@ -157,15 +165,15 @@ $.Controller('Kekomi.FileBrowser',
 	},
 	"{Kekomi.Models.Asset} destroyed" : function(Asset, ev, asset){
 		this.options.assetParams.attr('count', (this.options.assetParams.attr('count') - 1));
-		this.activate();
+		this.options.activated.remove(asset.id);
 	},
 	"{Kekomi.Models.Asset} updated" : function(Asset, ev, asset){
 		var folder_id = $.route.attr('folder');
 		if(folder_id && asset.folder_id != folder_id){
 			asset.elements(this.element).remove();
 			this.options.assetParams.attr('count', (this.options.assetParams.attr('count') - 1));
+			this.options.activated.remove(asset.id);
 		}
-		this.activate();
 	},
 	'.layout click' : function(el, ev){
 		if(el.hasClass('selected')) return;
@@ -213,20 +221,34 @@ $.Controller('Kekomi.FileBrowser',
 		}
 	},
 	markActive : function(){
-		if(this._activated){
+		if(this.options.activated.length > 0){
 			setTimeout(this.proxy(function(){
-				this._activated.elements(this.element)
-					.addClass('activated')
-					.find('input[type=checkbox]').prop('checked', true);
-					this.activate();
+				var elements    = this.options.activated.elements(this.element),
+						models      = new Kekomi.Models.Asset.List(elements.models()),
+						ids         = models.ids(),
+						missingIds  = this.options.activated.missing(ids).ids();
+				this.options.activated.remove(missingIds);
+				elements.addClass('activated')
+								.find('input[type=checkbox]').prop('checked', true);
 			}), 1);
+			
 		}
 	},
-	activate : function(){
-		this._activated = this.find('.activated').models();
+	activate : function(el, ev, items){
+		console.log(arguments)
+		var target    = $(ev.target),
+				activated = items || new Kekomi.Models.Asset.List([target.model()]);
+		console.log(activated, target, target.model())
+		if(activated){
+			this.options.activated.pushUnique(activated);
+		}
+		console.log(this.options.activated)
 	},
-	deactivate : function(){
-		this._activated = this.find('.activated').models();
+	deactivate : function(el ,ev){
+		var target = $(ev.target);
+		if(target.is('.asset')){
+			this.options.activated.remove(target.model().id);
+		}
 	},
 	'.asset draginit' : function(el, ev, drag){
 		if(!el.is('.activated')){
@@ -234,10 +256,18 @@ $.Controller('Kekomi.FileBrowser',
 			el.trigger('activate');
 		}
 		drag.representative(this.find('.dragged').kekomi_file_browser_dragged({
-			assets: this._activated
+			assets: this.options.activated
 		}), 10, 10);
 		drag.scrolls(this.find('.folders'))
-		
+	},
+	'.display-area dragenter' : function(el, ev){
+		ev.preventDefault();
+		ev.stopPropagation();
+		ev.stopImmediatePropagation();
+		this.find('.drag-drop-upload-area, .drag-drop-upload-notice').show();
+		if(this.options.assetParams.count == 0){
+			this.find('.no-data').hide();
+		}
 	}
 })
 

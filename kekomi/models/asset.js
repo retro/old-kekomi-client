@@ -62,4 +62,22 @@ $.Model('Kekomi.Models.Asset',
 	}
 });
 
+$.Model.List('Kekomi.Models.Asset.List', {}, {
+	ids : function(){
+		return this.map(function(asset){
+			return asset.id;
+		})
+	},
+	missing : function(ids){
+		return this.grep(function(asset){
+			return $.inArray(asset.id, ids) == -1;
+		});
+	},
+	pushUnique : function(assets){
+		var ids     = this.ids(),
+				missing = assets.missing(ids);
+		this.push.apply(this, missing);
+	}
+})
+
 })

@@ -15,9 +15,11 @@ $.Controller('Kekomi.FileBrowser.Dragged',
 		this._super.apply(this, arguments);
 		this.element.data('assets', this.options.assets);
 		var filename = (this.options.assets.length === 1)
-									 ? this.options.assets[0].name
+									 ? this.options.assets[0].name.split('.')[0]
 									 : this.options.assets.length,
 				image = $('<img/>');
+
+		filename = (filename.length > 9) ? filename.substr(0,9) : filename;
 		if(this.options.assets.length === 1){
 			switch(this.options.assets[0].type){
 			case "image":

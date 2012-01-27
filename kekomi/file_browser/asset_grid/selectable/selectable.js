@@ -30,6 +30,8 @@ $.Controller('Kekomi.FileBrowser.AssetGrid.Selectable',
 	activate : function(el, ev, assets){
 		if(assets){
 			assets.elements(this.element).find('input').prop('checked', true);
+		} else {
+			$(ev.target).find('input').prop('checked', true);
 		}
 	},
 	deactivate : function(el, ev, assets){
