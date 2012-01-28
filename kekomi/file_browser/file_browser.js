@@ -237,14 +237,14 @@ $.Controller('Kekomi.FileBrowser',
 			
 		}
 	},
-	activate : function(el, ev, items){
+	".display-area activate" : function(el, ev, items){
 		var target    = $(ev.target),
 				activated = items || new Kekomi.Models.Asset.List([target.model()]);
 		if(activated){
 			this.options.activated.pushUnique(activated);
 		}
 	},
-	deactivate : function(el ,ev){
+	".display-area deactivate" : function(el ,ev){
 		var target = $(ev.target);
 		if(target.is('.asset')){
 			this.options.activated.remove(target.model().id);

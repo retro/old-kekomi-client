@@ -38,7 +38,6 @@ steal('jquery/dom/fixture', function(){
 			content_type : contentTypes[type]
 		}
 	}, function(item, settings){
-		console.log(settings)
 		var should = true;
 		if(settings.data.type && should){
 			should = (item.type == settings.data.type);

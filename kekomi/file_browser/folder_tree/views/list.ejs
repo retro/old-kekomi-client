@@ -1,13 +1,14 @@
 <% for(var i=0; i < this.length; i++){ 
 	var item = this[i];
 %>
- <li>
+ <li class="wrapper-for-<%= item.id %>" data-folderid="<%= item.id %>">
  	<div class='name-wrapper'>
 		<span class='ui-icon ui-icon-triangle-1-e ui-toggle' 
 			 style='visibility: <%= item.hasChildren && item.hasChildren() ? '' : 'hidden' %>' >
 		</span>
 		<span tabindex='0' <%= item %>><span <%= plugin('inline_edit', {model: this[i], attr: 'name', activate: 'edit'}) %>><%= item.name %></span></span>
 	</div>
-	<ul></ul>
+
+	<ul class="children-of-<%= item.id %>" data-parentid="<%= item.id %>"></ul>
  </li>
 <% } %>

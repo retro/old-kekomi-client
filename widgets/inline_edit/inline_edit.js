@@ -73,9 +73,9 @@ $.Controller('Widgets.InlineEdit',
 				self._wasEdited = false;
 				self.isSaving = false;
 			});
-		} else {
-			this.element.trigger('noChange', this.options.model);
-		}
+		} 
+		if(!this._wasEdited) this.element.trigger('noChange', this.options.model);
+		
 		this.render();
 	},
 	render : function(){
