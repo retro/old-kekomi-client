@@ -1,0 +1,55 @@
+@import "../../kekomi/style/elements/elements.less";
+
+.widgets_modal {
+	width: 90%;
+	height: 90%;
+	position: relative;
+	.box-shadow(0 0 10px 0 rgba(0,0,0,0.5));
+	border: 1px solid black;
+	background: black;
+	.border-radius(5px, 0, 0, 5px);
+	.modal-content {
+		position: absolute;
+		top: 26px;
+		left: 0;
+		bottom: 0;
+		right: 0;
+	}
+	.modal-header {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		height: 25px;
+		color: white;
+		font-weight: bold;
+		font-size: 12px;
+		padding: 0px 10px;
+		line-height: 25px;
+		border-bottom: 1px solid black;
+		.gradient(#222, #111, #222);
+		.border-radius(5px, 0, 0, 5px);
+		.inner-highlight(0, 1px, 0, 0.05);
+		text-shadow: 0 1px black;
+		.close {
+			float: right;
+			width: 16px;
+			height: 16px;
+			background: url(../../kekomi/style/images/cc/white/png/round_delete_icon&16.png);
+			margin: 4px -5px 0 0;
+			opacity: 0.3;
+			cursor: pointer;
+			&:hover {
+				opacity: 0.6;
+			}
+		}
+	}
+}
+.widgets_modal-overlay {
+  background: rgba(255,255,255,0.2);
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}

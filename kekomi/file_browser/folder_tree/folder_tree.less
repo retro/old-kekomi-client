@@ -1,7 +1,6 @@
 @import "../../style/elements/elements.less";
 
 .kekomi_file_browser_folder_tree {
-	border-top: 1px solid #292929;
 	.ui-toggle {
 		float: left;
 		cursor: pointer;
@@ -111,8 +110,39 @@
 			}
 		}
 	}
+	.rearanging {
+		outline: 1px dotted #666;
+	}
 	.action {
 		float: left;
-		width: 50px;
+		font-size: 12px;
+		text-indent: -9999px;
+		width: 48px;
+		height: 38px;
+		opacity: 0.1;
+		cursor: pointer;
+		&:hover {
+			opacity: 0.5;
+		}
+		&.add-folder {
+			background: url(../../style/images/cc/white/png/folder_plus_icon&16.png);
+			background-position: 50% 50%;
+			background-repeat: no-repeat;
+		}
+		&.delete-folder {
+			background: url(../../style/images/cc/white/png/folder_delete_icon&16.png);
+			background-position: 50% 50%;
+			background-repeat: no-repeat;
+		}
+		&.edit-folder {
+			background: url(../../style/images/cc/white/png/pencil_icon&16.png);
+			background-position: 50% 50%;
+			background-repeat: no-repeat;
+		}
+		&.rearange-folders {
+			background: url(../../style/images/cc/white/png/folder_arrow_icon&16.png);
+			background-position: 50% 50%;
+			background-repeat: no-repeat;
+		}
 	}
 }

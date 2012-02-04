@@ -48,8 +48,16 @@ $.Controller('Kekomi.FileBrowser',
 /** @Prototype */
 {
 	init : function(){
+		var attrs = {
+			order: ['name asc']
+		};
+		if(this.options.type){
+			attrs.type = this.options.type
+		}
 		this.layout = 'list';
-		this.element.html("//kekomi/file_browser/views/init.ejs", {});
+		this.element.html("//kekomi/file_browser/views/init.ejs", {
+			type: this.options.type
+		});
 		this.setupGrid();
 		this.find('.folders').kekomi_file_browser_folder_tree();
 		this.find('.search input').mxui_form_input_watermark({
@@ -62,7 +70,7 @@ $.Controller('Kekomi.FileBrowser',
 			width: 3, 
 			radius: 7
 		});
-		this.options.assetParams.attr('order', ['name asc']);
+		this.options.assetParams.attrs(attrs);
 		this.find('.dragged').kekomi_file_browser_dragged();
 		this.find('.drag-drop-upload-area').kekomi_file_browser_drag_drop_upload({
 			assetParams : this.options.assetParams
@@ -268,6 +276,9 @@ $.Controller('Kekomi.FileBrowser',
 		if(this.options.assetParams.count == 0){
 			this.find('.no-data').hide();
 		}
+	},
+	'.asset dblclick' : function(el, ev){
+		this.element.trigger('selectImage', el.model());
 	}
 })
 

@@ -53,6 +53,9 @@ $.Controller('Kekomi.FileBrowser.Preview',
 			assets: new Kekomi.Models.Asset.List([el.model()])
 		}), 10, 10);
 	},
+	".select-file click" : function(el, ev){
+		this.element.trigger('selectImage', el.closest('.asset').model());
+	},
 	"{assetParams} updated.attr" : function(data, ev, attr, newVal, oldVal){
 		if(attr == "updating"){
 			if(newVal === true){

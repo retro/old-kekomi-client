@@ -8,7 +8,9 @@ $.Controller('Widgets.InlineEdit',
 /** @Static */
 {
 	defaults : {
-		activate : "click"
+		activate  : "click",
+		emptyText : "Click to edit",
+		autoSave  : true
 	},
 	pluginName : 'inline_edit'
 },
@@ -16,7 +18,7 @@ $.Controller('Widgets.InlineEdit',
 {
 	init : function(){
 		this._wasEdited = false;
-		this.isSaving  = false;
+		this._isSaving  = false;
 		this.render();
 	},
 	// don't render editor if user clicks on the link
@@ -65,14 +67,20 @@ $.Controller('Widgets.InlineEdit',
 		}
 	},
 	updateValue : function(){
-		if(this._wasEdited && !this.isSaving){
+		if(this._wasEdited && !this._isSaving){
 			var val  = this.find('input, textarea').val(),
 			    self = this;
-			this.isSaving = true;
-			this.options.model.save(function(){
-				self._wasEdited = false;
-				self.isSaving = false;
-			});
+			this._isSaving = true;
+			if(this.options.autoSave === true){
+				this.options.model.save(function(){
+					self._wasEdited = false;
+					self._isSaving = false;
+				});
+			} else {
+				this._wasEdited = false;
+				this._isSaving = false;
+			}
+			
 		} 
 		if(!this._wasEdited) this.element.trigger('noChange', this.options.model);
 		
@@ -84,7 +92,8 @@ $.Controller('Widgets.InlineEdit',
 		if(this.element){
 			if(isEmpty){
 				this.element.html(this.emptyTemplate(), {
-					model: this.options.model
+					model: this.options.model,
+					empty: this.options.emptyText
 				}).removeClass('editing');
 			} else {
 				this.element.html(this.rendererTemplate(), {

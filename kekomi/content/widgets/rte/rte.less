@@ -1,0 +1,179 @@
+@import "../../../style/elements/elements.less";
+.kekomi_content_widgets_rte {
+	position: relative;
+	padding-top: 40px;
+	.editable {
+		font-family: Georgia, "Times New Roman", serif;
+		outline: none;
+		padding: 15px;
+		border: 1px solid #ccc;
+		margin-top: -1px;
+		background: white;
+		h1, h2, h3, h4 {
+			color: #111111;
+			font-weight: 400;
+		}
+		h1, h2, h3, h4, h5, p {
+			margin-bottom: 24px;
+			padding: 0;
+		}
+		h1 {
+			font-size: 48px;
+		}
+		h2 {
+			font-size: 36px;
+			/* The bottom margin is small. It's designed to be used with gray meta text
+			 * below a post title. */
+			margin: 24px 0 6px;
+		}
+		h3 {
+			font-size: 24px;
+		}
+		h4 {
+			font-size: 21px;
+		}
+		h5 {
+			font-size: 18px;
+		}
+		a {
+			color: #0099ff;
+			margin: 0;
+			padding: 0;
+			vertical-align: baseline;
+		}
+		a:hover {
+			text-decoration: none;
+			color: #ff6600;
+		}
+		a:visited {
+			color: purple;
+		}
+		b, strong {
+			font-weight: bold;
+		}
+		em, i {
+			font-style: oblique;
+		}
+		ul, ol {
+			padding: 0;
+			margin: 0;
+			list-style-position: inside;
+			list-style-type: disc;
+		}
+		ol {
+			list-style-type: decimal;
+		}
+		li {
+			line-height: 24px;
+		}
+		li ul, li ul {
+			margin-left: 24px;
+		}
+		p, ul, ol {
+			font-size: 16px;
+			line-height: 24px;
+			max-width: 540px;
+		}
+		pre {
+			padding: 0px 24px;
+			max-width: 800px;
+			white-space: pre-wrap;
+		}
+		code {
+			font-family: Consolas, Monaco, Andale Mono, monospace;
+			line-height: 1.5;
+			font-size: 13px;
+		}
+		aside {
+			display: block;
+			float: right;
+			width: 390px;
+		}
+		blockquote {
+			border-left:.5em solid #eee;
+			padding: 0 2em;
+			margin-left:0;
+			max-width: 476px;
+		}
+		blockquote  cite {
+			font-size:14px;
+			line-height:20px;
+			color:#bfbfbf;
+		}
+		blockquote cite:before {
+			content: '\2014 \00A0';
+		}
+
+		blockquote p {  
+			color: #666;
+			max-width: 460px;
+		}
+		hr {
+			width: 540px;
+			text-align: left;
+			margin: 0 auto 0 0;
+			color: #999;
+		}
+
+		
+	}
+	.inEditMode {
+		border-color: #777;
+	}
+	.toolbar {
+		position: absolute;
+		height: 40px;
+		width: 540px;
+		top: 0;
+		left: 0;
+		height: 30px;
+		line-height: 30px;
+		background: #999;
+		padding: 4px;
+		border: 1px solid #777;
+		.gradient(#999, #777, #999);
+		.border-radius(2px,0,0,2px);
+		display: none;
+	}
+	.floating-toolbar {
+		.rounded(0px);
+		.box-shadow(0 3px 0 0 rgba(0,0,0,0.2));
+		padding-top: 5px;
+		border: 1px solid #666;
+		border-top: none;
+	}
+	.hallotoolbar {
+		.ui-buttonset {
+			margin-right: 5px;
+			display: block;
+			float: left;
+		}
+		label {
+			width: 28px;
+			height: 28px;
+			display: block;
+			float: left;
+			text-align: center;
+			.gradient(#666, #444, #666);
+			.box-shadow(0 1px 0 0 #999);
+			color: #eee;
+			font-size: 12px;
+			font-weight: bold;
+			cursor: pointer;
+			border: 1px solid #444;
+
+			border-right: none;
+			&.ui-corner-left {
+				.border-radius(0, 0, 2px, 2px);
+			}
+			&.ui-corner-right {
+				.border-radius(2px, 2px, 0, 0);
+				border-right: 1px solid #444;
+			}
+			&.ui-state-clicked {
+				color: white;
+				.gradient(#ad3500, #ad3500, #f34e00);
+			}
+		}
+	}
+}

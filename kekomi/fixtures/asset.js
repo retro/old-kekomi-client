@@ -7,13 +7,14 @@ steal('jquery/dom/fixture', function(){
 					"image"    : ['jpg', 'png', 'gif'],
 					"video"    : ['avi', 'flv', 'mov']
 				},
+				images       = 'image1 image2 image3'.split(' '),
 				tags         = "video content image football basketball funny featured reddit twitter new".split(" "),
 				type         = $.fixture.rand( types , 1)[0],
 				ext          = "." + $.fixture.rand( exts[type], 1)[0],
 				assetTags    = tags.slice(Math.floor(Math.random()*11), Math.floor(Math.random()*5)),
 				placeholders = {
 					"document" : steal.root.join("kekomi/placeholders/document.txt"),
-					"image"    : steal.root.join("kekomi/placeholders/image.jpg"),
+					"image"    : steal.root.join("kekomi/placeholders/" + $.fixture.rand( images, 1)[0] + ".jpg"),
 					"video"    : steal.root.join("kekomi/placeholders/video.flv")
 				},
 				filename     = placeholders[type],

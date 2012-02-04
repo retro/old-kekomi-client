@@ -17,4 +17,18 @@ steal("jquery/dom/fixture", './asset.js', function(){
 			description: $.fixture.rand( descriptions , 1)[0]
 		}
 	})
+	$.fixture.make("content_image", 5, function(i, content_image){
+		var descriptions = ["grill fish", "make ice", "cut onions"]
+		return {
+			name: "content_image "+i,
+			description: $.fixture.rand( descriptions , 1)[0]
+		}
+	})
+	$.fixture.make("content_text", 5, function(i, content_text){
+		var descriptions = ["grill fish", "make ice", "cut onions"]
+		return {
+			name: "content_text "+i,
+			description: $.fixture.rand( descriptions , 1)[0]
+		}
+	})
 })

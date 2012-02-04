@@ -26,7 +26,6 @@ $.Controller('Kekomi.FileBrowser.FolderTree',
 /** @Prototype */
 {
 	init : function(){
-		//store.findAll({}, this.proxy(this.renderTree))
 		this.find('ul').mxui_data_tree({
 			model: Kekomi.Models.AssetFolder,
 			parentId: 'parent_id',
@@ -35,6 +34,11 @@ $.Controller('Kekomi.FileBrowser.FolderTree',
 			expandClass : "ui-icon-triangle-1-e",
 			view: "//kekomi/file_browser/folder_tree/views/list.ejs"
 		});
+	},
+	'.all-assets click' : function(el, ev){
+		if($.route.attr('folder')){
+			$.route.removeAttr('folder');
+		}
 	},
 	".name-wrapper click" : function(el, ev){
 		if($(ev.target).hasClass('ui-toggle')) return;
@@ -80,9 +84,14 @@ $.Controller('Kekomi.FileBrowser.FolderTree',
 		
 	},
 	".name-wrapper draginit" : function(el, ev, drag){
-		var folder = el.find('.asset_folder').model();
-		drag.ghost();
-		drag.movingElement.data('folder', folder).addClass('drop');
+		if(el.closest('.rearanging').length > 0){
+			var folder = el.find('.asset_folder').model();
+			drag.ghost();
+			drag.movingElement.data('folder', folder).addClass('drop');
+		} else {
+			drag.cancel();
+		}
+		
 	},
 	".edit-folder click" : function(el, ev){
 		this.find('.active .inline_edit').trigger('edit');
@@ -106,6 +115,9 @@ $.Controller('Kekomi.FileBrowser.FolderTree',
 	},
 	'.delete-folder click' : function(el, ev){
 		this.find('.active .asset_folder').model().destroy();
+	},
+	'.rearange-folders click' : function(el, ev){
+		this.find('.mxui_data_tree').toggleClass('rearanging');
 	},
 	"leafExpanded" : function(el, ev, leaf){
 		var parentId = $(leaf).data('parentid'),
