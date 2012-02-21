@@ -71,8 +71,6 @@ $.Model.List('Kekomi.Models.Asset.List', {}, {
 	missing : function(ids){
 		var self = this;
 		return this.grep(function(asset){
-			console.log(self.ids(), ids)
-			console.log($.inArray(asset.id, ids) == -1)
 			return $.inArray(asset.id, ids) == -1;
 		});
 	},

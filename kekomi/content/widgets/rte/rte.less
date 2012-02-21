@@ -1,12 +1,13 @@
 @import "../../../style/elements/elements.less";
 .kekomi_content_widgets_rte {
 	position: relative;
-	padding-top: 40px;
 	.editable {
 		font-family: Georgia, "Times New Roman", serif;
 		outline: none;
 		padding: 15px;
 		border: 1px solid #ccc;
+		border-left: none;
+		border-right: none;
 		margin-top: -1px;
 		background: white;
 		h1, h2, h3, h4 {
@@ -18,22 +19,23 @@
 			padding: 0;
 		}
 		h1 {
-			font-size: 48px;
+			font-size: 30px;
 		}
 		h2 {
-			font-size: 36px;
-			/* The bottom margin is small. It's designed to be used with gray meta text
-			 * below a post title. */
-			margin: 24px 0 6px;
+			font-size: 24px;
+			margin-bottom: 20px;
 		}
 		h3 {
-			font-size: 24px;
+			font-size: 20px;
+			margin-bottom: 16px;
 		}
 		h4 {
-			font-size: 21px;
+			font-size: 16px;
+			margin-bottom: 12px;
 		}
 		h5 {
-			font-size: 18px;
+			font-size: 14px;
+			margin-bottom: 10px;
 		}
 		a {
 			color: #0099ff;
@@ -119,15 +121,15 @@
 	}
 	.inEditMode {
 		border-color: #777;
+		padding-top: 40px;
 	}
 	.toolbar {
 		position: absolute;
-		height: 40px;
 		width: 540px;
 		top: 0;
 		left: 0;
-		height: 30px;
-		line-height: 30px;
+		height: 20px;
+		line-height: 18px;
 		background: #999;
 		padding: 4px;
 		border: 1px solid #777;
@@ -149,15 +151,15 @@
 			float: left;
 		}
 		label {
-			width: 28px;
-			height: 28px;
+			width: 25px;
+			height: 18px;
 			display: block;
 			float: left;
 			text-align: center;
 			.gradient(#666, #444, #666);
 			.box-shadow(0 1px 0 0 #999);
 			color: #eee;
-			font-size: 12px;
+			font-size: 11px;
 			font-weight: bold;
 			cursor: pointer;
 			border: 1px solid #444;

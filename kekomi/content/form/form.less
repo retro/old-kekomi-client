@@ -62,7 +62,7 @@
 	}
 	.kekomi_content_widgets_code {
 		position: relative;
-		height: 50px;
+		height: 48px;
 		width: 565px;
 		margin-right: -15px;
 		.ace_gutter, .ace_sb {
@@ -70,6 +70,36 @@
 		}
 		.ace_cursor.ace_hidden {
 			opacity: 0;
+		}
+	}
+	.composed-widget {
+		width: 552px;
+		margin-left: 158px;
+		.widget {
+			float: none;
+		}
+		.label {
+			width: auto;
+			background: #ddd;
+			padding: 0 5px;
+			margin: 0 2px;
+			float: none;
+			height: 30px;
+			line-height: 30px;
+			.rounded()
+		}
+		.content-row {
+			padding: 2px 0;
+			border: none;
+			border-left: 1px solid #ccc;
+			border-right: 1px solid #ccc;
+		}
+		.toolbar {
+			float: right;
+			margin-top: -25px;
+		}
+		.kekomi_content_widgets_rte .toolbar {
+			margin-top: 0;
 		}
 	}
 	

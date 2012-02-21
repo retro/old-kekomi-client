@@ -18,7 +18,9 @@ $.Controller('Kekomi.Content.Widgets.Image',
 /** @Static */
 {
 	defaults : {
-		modal : modal
+		modal : modal,
+		image : null,
+		remove: null
 	}
 },
 /** @Prototype */
@@ -27,7 +29,9 @@ $.Controller('Kekomi.Content.Widgets.Image',
 		var d = new Date();
 		this._id = "image-widget-" + d.getTime();
 		this.content_image = new Kekomi.Models.ContentImage;
-		this.element.html("//kekomi/content/widgets/image/views/init.ejs",{});
+		this.element.html("//kekomi/content/widgets/image/views/init.ejs",{
+			image : this.options.image
+		});
 	},
 	".change-image click" : function(el, ev){
 		this.Class.currentId = this._id;
@@ -38,28 +42,27 @@ $.Controller('Kekomi.Content.Widgets.Image',
 			type: 'image'
 		}).trigger('resize');
 	},
-	'.remove-image click' : function(el, ev){
-		this.content_image.removeAttr('filename');
-		this.content_image.removeAttr('asset_id');
-		this.content_image.removeAttr('caption');
-		this.find('.image-wrapper').html('//kekomi/content/widgets/image/views/no_image.ejs', {});
+	'.remove click' : function(el, ev){
+		if($.isFunction(this.options.remove)){
+			this.options.remove.apply(this);
+		} else {
+			this.element.html('//kekomi/content/widgets/image/views/no_image.ejs', {});
+		}
 	},
-	"{modal} selectImage" : function(el, ev, image){
+	"{modal} selectFile" : function(el, ev, images){
 		if(this.Class.currentId === this._id){
-			this.setImage(image);
+			console.log(images, images[0])
+			this.setImage(images[0]);
 			this.options.modal.trigger('hide');
 		}
 	},
 	setImage : function(image){
-		this.content_image.attrs({
-			filename: image.filename,
-			asset_id: image.id
-		});
+		this.content_image.updateFromFile(image);
 		this.content_image.updated();
 	},
 	"{Kekomi.Models.ContentImage} updated" : function(ContentImage, ev, content_image){
 		if(content_image === this.content_image){
-			this.find('.image-wrapper').html('//kekomi/content/widgets/image/views/image.ejs', content_image);
+			this.element.html('//kekomi/content/widgets/image/views/image.ejs', content_image);
 		}
 	}
 })

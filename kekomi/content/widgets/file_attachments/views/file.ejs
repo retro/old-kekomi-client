@@ -1,0 +1,6 @@
+<div class="file ui-helper-clearfix" <%= this %>>
+	<div <%= plugin('inline_edit', {model: this, attr: 'title', autoSave: false}) %>></div>
+	<div class="remove"></div>
+	<div class="size"><%== bytesToSize(size) %></div>
+	
+</div>

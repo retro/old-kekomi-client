@@ -1,0 +1,39 @@
+@import "../../../style/elements/elements.less";
+
+.kekomi_content_widgets_file_attachments {
+	.file {
+		font-size: 12px;
+		background: #fff;
+		margin-top: 5px;
+		padding: 5px;
+		width: 540px;
+		.rounded();
+		&.dragged {
+			.box-shadow(0 0 10px 0 rgba(0,0,0,0.2));
+		}
+		.inline_edit {
+			float: left;
+			margin-top: 0;
+		}
+		.size {
+			float: right;
+			height: 20px;
+			line-height: 20px;
+			margin-right: 5px;
+			background: #ccc;
+			padding: 0 5px;
+		}
+		.remove {
+			width: 16px;
+			height: 16px;
+			margin-top: 2px;
+			float: right;
+			background: url(../../../style/images/cc/black/png/round_delete_icon&16.png);
+			opacity: 0.3;
+			cursor: pointer;
+			&:hover {
+				opacity: 0.8;
+			}
+		}
+	}
+}

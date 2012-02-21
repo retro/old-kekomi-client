@@ -7,7 +7,7 @@ steal('jquery/dom/fixture', function(){
 					"image"    : ['jpg', 'png', 'gif'],
 					"video"    : ['avi', 'flv', 'mov']
 				},
-				images       = 'image1 image2 image3'.split(' '),
+				images       = 'image1 image2 image3 image4'.split(' '),
 				tags         = "video content image football basketball funny featured reddit twitter new".split(" "),
 				type         = $.fixture.rand( types , 1)[0],
 				ext          = "." + $.fixture.rand( exts[type], 1)[0],

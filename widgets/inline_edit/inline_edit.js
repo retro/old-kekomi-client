@@ -35,7 +35,7 @@ $.Controller('Widgets.InlineEdit',
 		ev.stopPropagation();
 		ev.stopImmediatePropagation();
 	},
-	"input[type=text] blur" : function(el, ev){
+	"input[type=text] focusout" : function(el, ev){
 		this.updateValue();
 	},
 	"input[type=text] change" : function(el){
@@ -46,7 +46,10 @@ $.Controller('Widgets.InlineEdit',
 		ev.stopPropagation();
 		ev.stopImmediatePropagation();
 	},
-	"textarea blur" : function(el, ev){
+	"textarea,input mousedown" : function(el, ev){
+		ev.stopPropagation();
+	},
+	"textarea focusout" : function(el, ev){
 		this.updateValue(el.val());
 	},
 	"textarea change" : function(el){
@@ -114,7 +117,7 @@ $.Controller('Widgets.InlineEdit',
 	},
 	inputTemplate : function(){
 		if(this.options.input) return this.options.input;
-		if(this.options.model.Class.attributes[this.options.attr] == 'text'){
+		if(this.options.model.Class.attributes[this.options.attr] == 'text' || this.options.input === 'textarea'){
 			return "//widgets/inline_edit/views/inputs/textarea.ejs";
 		}
 		return "//widgets/inline_edit/views/inputs/string.ejs";

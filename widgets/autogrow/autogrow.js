@@ -19,14 +19,16 @@ $.Controller('Widgets.Autogrow',
 		this.updateDiv(el.val());
 	},
 	"textarea keydown" : function(el, ev){
-		this.updateDiv(el.val());
+		var val = el.val();
+		if(ev.which === 13) val += "\n";
+		this.updateDiv(val);
 	},
 	"textarea change" : function(el, ev){
 		this.updateDiv(el.val());
 	},
 	updateDiv : function(val){
-		var text = val.replace(/\n/g, '<br/>'),
-		    grower = this.find(".grower");
+		var text         = val.replace(/\n/g, '<br/>'),
+		    grower       = this.find(".grower");
 		grower.html(text + "&nbsp;");
 		this.find('textarea').height(grower.height());
 	}

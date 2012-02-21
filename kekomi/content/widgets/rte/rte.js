@@ -53,8 +53,8 @@ $.Controller('Kekomi.Content.Widgets.Rte',
 			if(offset < this.offset + this.element.height() - 140){
 				this._toolbarTimeout = setTimeout(this.proxy(function(){
 					var shouldAnimate = false;
-					if(offset > 40){
-						offset -= 40;
+					if(offset > 30){
+						offset -= 30;
 						shouldAnimate = true;
 					}
 					toolbar.css({
@@ -64,10 +64,10 @@ $.Controller('Kekomi.Content.Widgets.Rte',
 					});
 					if(shouldAnimate){
 						toolbar.animate({
-							top: "+=40"
+							top: "+=30"
 						}, 100)
 					}
-					offset = shouldAnimate ? offset + 40 : offset;
+					offset = shouldAnimate ? offset + 30 : offset;
 					toolbar.toggleClass('floating-toolbar', offset > 0);
 				}), timeout)
 			}
@@ -106,7 +106,6 @@ $.Controller('Kekomi.Content.Widgets.Rte',
 	'.editable focus' : function(el, ev, direction){
 		if(direction === 'fromBottom'){
 			var range = el.range().collapse(false);
-			console.log('RANGE:' , range)
 			el.data('hallo').restoreSelection(range.range);
 			ev.preventDefault();
 		}

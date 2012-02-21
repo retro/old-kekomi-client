@@ -1,2 +1,13 @@
-<img src="<%= filename%>" />
-<div <%= plugin('inline_edit', {emptyText: 'Click to add caption', model: this, attr: 'caption', autoSave: false}) %>></div>
+<div class="image-wrapper ui-helper-clearfix">
+	<div class="image"><img src="<%= filename%>" /></div>
+	<div <%= plugin('inline_edit', {
+		emptyText: 'Click to add caption', 
+		model: this, 
+		attr: 'caption', 
+		autoSave: false, 
+		grow: true,
+		renderer: '//kekomi/content/widgets/image/views/caption.ejs'
+	}) %>>
+	</div>
+	<div class="remove"></div>
+</div>

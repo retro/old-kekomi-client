@@ -31,4 +31,11 @@ steal("jquery/dom/fixture", './asset.js', function(){
 			description: $.fixture.rand( descriptions , 1)[0]
 		}
 	})
+	$.fixture.make("content_file", 5, function(i, content_file){
+		var descriptions = ["grill fish", "make ice", "cut onions"]
+		return {
+			name: "content_file "+i,
+			description: $.fixture.rand( descriptions , 1)[0]
+		}
+	})
 })

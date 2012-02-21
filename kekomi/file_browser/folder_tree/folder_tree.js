@@ -129,7 +129,6 @@ $.Controller('Kekomi.FileBrowser.FolderTree',
 			}
 		} else if(this._moveFolderTo && this._moveFolderTo[parentId]){
 			for(var i = 0; i < this._moveFolderTo[parentId].length; i++){
-				console.log(this._moveFolderTo[parentId][i])
 				$(leaf).append(this._moveFolderTo[parentId][i]);
 			}
 			this.find('.wrapper-for-' + parentId + " .ui-icon").css('visibility', 'visible');

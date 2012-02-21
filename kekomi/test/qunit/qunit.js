@@ -1,1 +1,1 @@
-steal("funcunit/qunit", "./kekomi_test.js", './item_test.js', './asset_test.js', './asset_folder_test.js', './tags_test.js', './content_image_test.js', './content_text_test.js');
+steal("funcunit/qunit", "./kekomi_test.js", './item_test.js', './asset_test.js', './asset_folder_test.js', './tags_test.js', './content_image_test.js', './content_text_test.js', './content_file_test.js');

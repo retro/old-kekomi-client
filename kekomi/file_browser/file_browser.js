@@ -278,8 +278,12 @@ $.Controller('Kekomi.FileBrowser',
 		}
 	},
 	'.asset dblclick' : function(el, ev){
-		this.element.trigger('selectImage', el.model());
-	}
+		this.element.trigger('selectFile', [[el.model()]]);
+	},
+	".select-file click" : function(el, ev){
+		console.log(this.options.activated)
+		this.element.trigger('selectFile', [this.options.activated]);
+	},
 })
 
 });
