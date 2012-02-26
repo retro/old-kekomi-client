@@ -25,6 +25,7 @@
 		background: #eee;
 		.rounded(2px);
 		width: 720px;
+		padding: 20px 0;
 	}
 	.sidebar {
 		background: #eee;
@@ -46,7 +47,7 @@
 	}
 	.label {
 		float: left;
-		color: #f34e00;
+		color: #666;
 		text-transform: uppercase;
 		font-size: 11px;
 		font-weight: bold;
@@ -55,15 +56,18 @@
 	}
 	.widget {
 		float: left;
-		width: 550px;
+		width: 620px;
 		.toolbar {
 			float: none;
 		}
 	}
+	.kekomi_content_widgets_image_gallery {
+		width: 625px;
+	}
 	.kekomi_content_widgets_code {
 		position: relative;
 		height: 48px;
-		width: 565px;
+		width: 635px;
 		margin-right: -15px;
 		.ace_gutter, .ace_sb {
 			display: none;
@@ -73,30 +77,52 @@
 		}
 	}
 	.composed-widget {
-		width: 552px;
-		margin-left: 158px;
+		width: 632px;
+		margin: 10px 0 10px 80px;
 		.widget {
 			float: none;
+			padding-top: 5px;
 		}
 		.label {
 			width: auto;
 			background: #ddd;
 			padding: 0 5px;
-			margin: 0 2px;
 			float: none;
+			height: 29px;
+			line-height: 29px;
+			margin: 0 -5px;
+		}
+		.sublabel {
 			height: 30px;
 			line-height: 30px;
-			.rounded()
+			font-size: 11px;
+			font-weight: bold;
+			text-transform: uppercase;
+			color: #444;
 		}
 		.content-row {
-			padding: 2px 0;
+			padding: 0 5px 5px;
 			border: none;
-			border-left: 1px solid #ccc;
-			border-right: 1px solid #ccc;
+			margin-bottom: 5px;
+			border: 1px solid #ddd;
+			.rounded();
+			.kekomi_content_widgets_rte {
+				margin: -5px;
+				width: 630px;
+			}
+			.kekomi_content_widgets_code {
+				margin: -5px;
+				width: 645px;
+			}
+		}
+		.subwidget {
+			border-bottom: 1px solid #ddd;
+			margin: 0 -5px 5px;
+			padding: 0 5px 5px;
 		}
 		.toolbar {
 			float: right;
-			margin-top: -25px;
+			margin: -30px 5px 0 0;
 		}
 		.kekomi_content_widgets_rte .toolbar {
 			margin-top: 0;

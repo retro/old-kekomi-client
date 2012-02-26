@@ -3,7 +3,7 @@ steal(
 'jquery/view/ejs',
 'kekomi/vendor/ace/src/ace.js',
 function(){},
-'kekomi/vendor/ace/src/theme-monokai.js',
+'kekomi/vendor/ace/src/theme-clouds.js',
 'kekomi/vendor/guid.js'
 ).then( './views/init.ejs', function($){
 
@@ -24,8 +24,8 @@ $.Controller('Kekomi.Content.Widgets.Code',
 		this.editor = ace.edit(id);
 		this.session = this.editor.getSession();
 		this.session.setUseWrapMode(true);
-		this.session.setWrapLimitRange(77, 77); // ammount of characters that fit in the box
-		this.editor.setTheme("ace/theme/monokai");
+		this.session.setWrapLimitRange(80, 80); // ammount of characters that fit in the box
+		this.editor.setTheme("ace/theme/clouds");
 		this.editor.renderer.setShowGutter(false);
 		this.editor.renderer.setHScrollBarAlwaysVisible(false);
 		this.editor.setHighlightActiveLine(false);

@@ -48,7 +48,7 @@ $.Controller('Kekomi.Content.Widgets.ImageGallery',
 		this.find('.files').sortable({
 			tolerance: 'pointer'
 		})
-		for(var i = 0; i < 12; i++){
+		for(var i = 0; i < 5; i++){
 			this.addFile(file);
 		}
 	},
