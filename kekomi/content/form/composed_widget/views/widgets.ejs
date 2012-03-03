@@ -1,0 +1,14 @@
+<div class="toolbar">
+	<a href="javascript://" class="round-action has-icon open-widgets-popover">Add content block<span class="ui-icon ui-icon-plus"></span></a>
+</div>
+<div class="widgets-popover">
+	<div class="triangle"></div>
+	<% for(var k in fields){ var field = fields[k]; %>
+		<a href="javascript://" class="add-widget" data-widget="<%= field.type %>">
+			Add <span><%= field.label %></span>
+		</a>
+	<% } %>
+</div>
+<% for(var k in fields){ var field = fields[k]; %>
+	<%== $.View('//kekomi/content/form/composed_widget/views/widget.ejs', field) %>
+<% } %>

@@ -1,0 +1,14 @@
+<div class="content-row">
+	<div class="actions toolbar">
+		<a href="javascript://" class="move-up round-action"><span class="ui-icon ui-icon-triangle-1-n"></span></a>
+		<a href="javascript://" class="move-down round-action"><span class="ui-icon ui-icon-triangle-1-s"></span></a>
+		<a href="javascript://" class="open-widgets-popover round-action"><span class="ui-icon ui-icon-plus"></span></a>
+		<a href="javascript://" class="remove-field round-action"><span class="ui-icon ui-icon-close"></span></a>
+	</div>
+	<div class="label"><%= label %></div>
+	<% if(typeof $.fn['kekomi_content_widgets_' + type] !== 'undefined'){ %>
+		<div class="widget" <%= plugin('kekomi_content_widgets_' + type) %>></div>
+	<% } else { %>
+		<div class="widget" <%= plugin('kekomi_content_form_block_widget', {widget: type}) %>></div>
+	<% } %>
+</div>

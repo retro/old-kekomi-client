@@ -25,7 +25,7 @@
 		background: #eee;
 		.rounded(2px);
 		width: 720px;
-		padding: 20px 0;
+		padding: 1px 0;
 	}
 	.sidebar {
 		background: #eee;
@@ -38,12 +38,10 @@
 		.rounded(2px);
 	}
 	.content-row {
-		border-bottom: 1px solid #ccc;
 		zoom: 1;
-		padding: 10px;
 		&:before, &:after { content: ""; display: table; }
 		&:after { clear: both; }
-
+		margin-left: 86px;
 	}
 	.label {
 		float: left;
@@ -56,13 +54,40 @@
 	}
 	.widget {
 		float: left;
-		width: 620px;
+		width: 631px;
+	}
+
+	.toolbar {
+		float: right;
+		margin: -25px -5px 0 0;
+		.round-action {
+			.box-shadow(none);
+			border-color: #707070;
+			background: #999;
+			text-shadow: none;
+			color: #444;
+		}
+	}
+
+	.widget-wrap {
 		.toolbar {
-			float: none;
+			display: none;
+		}
+		&:hover {
+			.toolbar {
+				display: block;
+			}
+			.kekomi_content_widgets_rte .toolbar {
+				display: none;
+			}
 		}
 	}
 	.kekomi_content_widgets_image_gallery {
 		width: 625px;
+		padding-left: 6px;
+		.toolbar {
+			margin-right: 1px;
+		}
 	}
 	.kekomi_content_widgets_code {
 		position: relative;
@@ -76,57 +101,43 @@
 			opacity: 0;
 		}
 	}
-	.composed-widget {
-		width: 632px;
-		margin: 10px 0 10px 80px;
-		.widget {
-			float: none;
-			padding-top: 5px;
-		}
-		.label {
-			width: auto;
-			background: #ddd;
-			padding: 0 5px;
-			float: none;
-			height: 29px;
-			line-height: 29px;
-			margin: 0 -5px;
-		}
-		.sublabel {
-			height: 30px;
-			line-height: 30px;
-			font-size: 11px;
-			font-weight: bold;
-			text-transform: uppercase;
-			color: #444;
-		}
-		.content-row {
-			padding: 0 5px 5px;
-			border: none;
-			margin-bottom: 5px;
-			border: 1px solid #ddd;
-			.rounded();
-			.kekomi_content_widgets_rte {
-				margin: -5px;
-				width: 630px;
-			}
-			.kekomi_content_widgets_code {
-				margin: -5px;
-				width: 645px;
-			}
-		}
-		.subwidget {
-			border-bottom: 1px solid #ddd;
-			margin: 0 -5px 5px;
-			padding: 0 5px 5px;
-		}
+	.kekomi_content_widgets_rte {
+		margin: 5px 0;
+	}
+	.widget-label {
+		background: #7E7070;
+		color: white;
+		padding: 5px 10px;
+		font-size: 11px;
+		font-weight: bold;
+		margin: 0 1px;
+		height: 20px;
+		line-height: 20px;
+		text-transform: uppercase;
+		.rounded();
+	}
+	.sublabel {
+		height: 30px;
+		line-height: 30px;
+		font-size: 10px;
+		font-weight: bold;
+		text-transform: uppercase;
+		color: #444;
+		padding-left: 5px;
+	}
+	.subwidget {
+		padding-bottom: 10px;
+		border-bottom: 1px solid #ddd;
+		margin-bottom: 10px;
+	}
+	.widget-wrap:last-child .subwidget {
+		border-bottom: none;
+		margin-bottom: 0;
+		padding-bottom: 0;
+	}
+	.kekomi_content_form_block_widget .widget-wrap {
 		.toolbar {
-			float: right;
-			margin: -30px 5px 0 0;
-		}
-		.kekomi_content_widgets_rte .toolbar {
-			margin-top: 0;
+			display: none;
 		}
 	}
-	
 }

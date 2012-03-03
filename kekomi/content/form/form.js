@@ -6,7 +6,10 @@ steal(
 'kekomi/content/widgets/code',
 'kekomi/content/widgets/file_attachments',
 'kekomi/content/widgets/image_gallery',
+'kekomi/content/form/composed_widget',
+'kekomi/content/form/block_widget',
 'kekomi/style',
+'kekomi/models/content_template.js',
 'steal/less')
 	.then( './views/init.ejs', './form.less', function($){
 
@@ -22,8 +25,9 @@ $.Controller('Kekomi.Content.Form',
 /** @Prototype */
 {
 	init : function(){
-		this.element.html("//kekomi/content/form/views/init.ejs",{});
-		this.find('.editable:nth-child(2)').hallo('activate')
+		this.element.html("//kekomi/content/form/views/init.ejs",{
+			contentTemplate : Kekomi.Models.ContentTemplate.findOne({id : 1})
+		});
 	},
 	moveUp : function(el, ev, currentEl){
 		var editables = this.find('.kekomi_content_widgets_code, .kekomi_content_widgets_rte'),

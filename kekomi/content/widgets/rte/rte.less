@@ -1,11 +1,12 @@
 @import "../../../style/elements/elements.less";
-.kekomi_content_widgets_rte {
+.kekomi_content_form .kekomi_content_widgets_rte {
 	position: relative;
 	.editable {
 		font-family: Georgia, "Times New Roman", serif;
 		outline: none;
-		padding: 15px;
+		padding: 15px 15px 2px;
 		background: white;
+		min-height: 60px;
 		h1, h2, h3, h4 {
 			color: #111111;
 			font-weight: 400;
@@ -116,28 +117,28 @@
 		
 	}
 	.inEditMode {
-		padding-top: 40px;
+		box-shadow: inset 0 1px 5px 0 rgba(0,0,0,0.2);
+		outline: 1px solid #666;
 	}
-	.toolbar {
-		position: absolute;
-		width: 540px;
+	.hallo-toolbar {
+		position: fixed;
+		width: 623px;
 		top: 0;
 		left: 0;
 		height: 20px;
 		line-height: 18px;
 		background: #999;
 		padding: 4px;
-		border: 1px solid #777;
 		.gradient(#999, #777, #999);
-		.border-radius(2px,0,0,2px);
 		display: none;
+		display: block;
+		border-bottom: 1px solid #666;
+		margin: 0;
 	}
 	.floating-toolbar {
 		.rounded(0px);
 		.box-shadow(0 3px 0 0 rgba(0,0,0,0.2));
 		padding-top: 5px;
-		border: 1px solid #666;
-		border-top: none;
 	}
 	.hallotoolbar {
 		.ui-buttonset {

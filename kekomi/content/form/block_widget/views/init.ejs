@@ -1,0 +1,6 @@
+<% for(var i = 0; i < widget.fields.length; i++){%>
+	<div class="widget-wrap">
+		<div class="sublabel"><%= widget.fields[i].label %></div>
+		<div class="subwidget" <%= plugin('kekomi_content_widgets_' + widget.fields[i].type) %>></div>
+	</div>
+<% } %>

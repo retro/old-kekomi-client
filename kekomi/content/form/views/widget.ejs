@@ -1,0 +1,10 @@
+<div class="widget-wrap">
+	<div class="widget-label"><%= label %></div>
+	<div class="content-row">
+		<% if(typeof $.fn['kekomi_content_widgets_' + fields] !== 'undefined'){ %>
+			<div class="widget" <%= plugin('kekomi_content_widgets_' + fields) %>></div>
+		<% } else { %>
+			<div class="widget" <%= plugin('kekomi_content_form_block_widget', {widget: fields}) %>></div>
+		<% } %>
+	</div>
+</div>

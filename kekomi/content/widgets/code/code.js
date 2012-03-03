@@ -28,6 +28,7 @@ $.Controller('Kekomi.Content.Widgets.Code',
 		this.editor.setTheme("ace/theme/clouds");
 		this.editor.renderer.setShowGutter(false);
 		this.editor.renderer.setHScrollBarAlwaysVisible(false);
+		this.editor.renderer.setShowPrintMargin(false)
 		this.editor.setHighlightActiveLine(false);
 		this.session.on('change', this.proxy('aceChange'));
 		this.editor.on('focus', this.proxy('focus'));
@@ -40,7 +41,7 @@ $.Controller('Kekomi.Content.Widgets.Code',
 				length += parseInt(Math.ceil(lines[i].length / 77) - 1);
 			}
 		}
-		var height = length * 12 + 24,
+		var height = length * 12 + 12,
 		height = height < 48 ? 48 : height;
 		this.element.css('height', height + "px");
 		this.editor.resize();

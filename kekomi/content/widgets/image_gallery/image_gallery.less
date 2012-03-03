@@ -1,20 +1,26 @@
 @import "../../../style/elements/elements.less";
 .kekomi_content_widgets_image_gallery {
+	.files {
+		padding-top: 5px;
+	}
+	
 	.kekomi_content_widgets_image {
-		margin-top: 5px;
+		margin: 0 0 5px;
+		width: 620px;
 		&.dragged {
 			.box-shadow(0 0 10px 0 rgba(0,0,0,0.3));
 		}
-	}
-	.placeholder {
-		border: 1px dashed grey;
+		.image-wrapper {
+			.inline_edit, .inline_edit textarea, .caption-renderer {
+				width: 477px;
+			}
+		}
 	}
 	&.collapsed {
 		.kekomi_content_widgets_image {
-			margin: 5px 5px 0 0;
 			float: left;
 			width: 120px;
-			height: 161px;
+			margin: 0 5px 5px 0;
 			.inline_edit {
 				width: 107px;
 				margin-left: -7px;
@@ -27,7 +33,7 @@
 				}
 			}
 			.image-wrapper {
-				height: 156px;
+				height: 146px;
 				.image {
 					height: 100px;
 					display: table-cell;
@@ -35,6 +41,7 @@
 					vertical-align: middle;
 					img {
 						vertical-align: middle;
+						max-height: 90px;
 					}
 				}
 			}

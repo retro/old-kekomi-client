@@ -1,0 +1,190 @@
+@import "../../../style/elements/elements.less";
+
+.kekomi_content_form .kekomi_content_form_composed_widget {
+	width: 632px;
+	margin: 0px 0 0 86px;
+	position: relative;
+	.toolbar {
+		float: right;
+		margin: -26px 2px 0 0;
+		.round-action {
+			.box-shadow(none);
+			border-color: #707070;
+			background: #999;
+			text-shadow: none;
+			color: #444;
+		}
+		.has-icon {
+			.ui-icon {
+				float: right;
+				margin-right: -8px;
+				opacity: 0.6;
+			}
+		}
+	}
+	.widget {
+		float: none;
+		padding: 5px 0;
+		.toolbar {
+			float: right;
+			margin: -22px 87px 0 0;
+			display: none;
+			.round-action {
+				border-color: #ddd;
+				background: #eee;
+				.box-shadow(none);
+				&:hover {
+					color: black;
+					background: #f6f6f6;
+				}
+			}
+		}
+		&:hover .toolbar {
+			display: block;
+		}
+	}
+	.label {
+		width: auto;
+		background: #ddd;
+		padding: 0 5px;
+		float: none;
+		height: 23px;
+		line-height: 23px;
+		margin: 0;
+		font-size: 10px;
+	}
+	
+	.content-row {
+		padding: 0;
+		border: none;
+		margin: 1px 0 0 0;
+		border: 1px solid #ddd;
+		background: #eee;
+		.actions {
+			margin: 1px 1px 0 0;
+			float: right;
+			display: none;
+			padding-left: 5px;
+			.border-radius(0, 0, 2px, 2px);
+			a {
+				padding: 0 2px;
+				border-color: #ddd;
+				background: #eee;
+				.box-shadow(none);
+				span {
+					display: block;
+					width: 16px;
+					height: 16px;
+					margin-top: 1px;
+					opacity: 0.7;
+				}
+				&.open-widgets-popover {
+					span {
+						margin: 0;
+					}
+				}
+				&:hover {
+					background: #f6f6f6;
+					span {
+						opacity: 0.8;
+					}
+				}
+			}
+		}
+		&:hover {
+			.toolbar {
+				display: block;
+			}
+		}
+		.kekomi_content_widgets_rte {
+			padding: 0;
+			margin: 0;
+			width: 630px;
+			.toolbar {
+				display: none;
+				width: 622px;
+			}
+		}
+		.kekomi_content_widgets_image {
+			padding: 0;
+			width: 625px;
+			margin: 0;
+			border-right: 5px solid white;
+		}
+
+		.kekomi_content_widgets_code {
+			margin: 0;
+			padding: 5px 5px 0;
+			background: white;
+			width: 620px;
+		}
+		.kekomi_content_widgets_file_attachments, .kekomi_content_widgets_image_gallery {
+			padding: 0;
+		}
+		.kekomi_content_widgets_file_attachments {
+			width: 625px;
+		}
+		.kekomi_content_widgets_image_gallery {
+			.kekomi_content_widgets_image {
+				margin: 0 0 5px 5px;
+				width: 620px;
+				border-right: none;
+			}
+			&.collapsed .kekomi_content_widgets_image {
+				width: 120px;
+				margin: 0 0 5px 5px;
+			}
+		}
+	}
+	.dragged {
+		.box-shadow(0 0 10px 0 rgba(0,0,0,0.05));
+		cursor: move;
+		.actions {
+			opacity: 1;
+		}
+	}
+	
+	
+	.kekomi_content_widgets_rte .toolbar {
+		margin-top: 0;
+	}
+	.content-row .kekomi_content_form_block_widget {
+		.toolbar {
+			display: none;
+			margin-right: 0px;
+		}
+		.widget-wrap:hover .toolbar {
+			display: block;
+		}
+	}
+}
+.widgets-popover {
+	position: absolute;
+	width: 151px;
+	background: #222;
+	z-index: 10000;
+	padding: 5px;
+	display: none;
+	.rounded();
+	.box-shadow(0 0 8px 0 rgba(0,0,0,0.5));
+	a {
+		display: block;
+		font-size: 12px;
+		color: white;
+		padding: 5px;
+		text-decoration: none;
+		.rounded(1px);
+		&:hover {
+			background: #333;
+		}
+	}
+	.triangle {
+		width: 0;
+		height: 0;
+		border-left: 5px solid transparent;
+		border-right: 5px solid transparent;
+		border-bottom: 5px solid #222;
+		margin: -10px 0 0 71px;
+		position: absolute;
+	}
+}

@@ -1,40 +1,12 @@
 <div class="content-wrapper">
 	<div class="form-wrapper">
-		<div class="composed-widget">
-			<div class="content-row">
-				<div class="label">Thumbnail image</div>
-				<div class="widget" <%= Kekomi.Content.Widgets.Image %>></div>
-			</div>
-			<div class="content-row">
-				<div class="label">Code</div>
-				<div class="widget" <%= Kekomi.Content.Widgets.Code %>></div>
-			</div>
-			<div class="content-row">
-				<div class="label">Text</div>
-				<div class="widget" <%= Kekomi.Content.Widgets.Rte %>></div>
-			</div>
-			<div class="content-row">
-				<div class="label">Image gallery with title</div>
-				<div class="subwidget">
-					<div class="sublabel">Title</div>
-					<div class="widget">
-						<input type="text" />
-					</div>
-				</div>
-				<div class="subwidget">
-					<div class="sublabel">Image gallery</div>
-					<div class="widget" <%= Kekomi.Content.Widgets.ImageGallery %>></div>
-				</div>
-			</div>
-			<div class="content-row">
-				<div class="label">Image gallery</div>
-				<div class="widget" <%= Kekomi.Content.Widgets.ImageGallery %>></div>
-			</div>
-			<div class="content-row">
-				<div class="label">File Attachments</div>
-				<div class="widget" <%= Kekomi.Content.Widgets.FileAttachments %>></div>
-			</div>
-		</div>
+		<% for(var k in contentTemplate.fields){ var field = contentTemplate.fields[k]; %>
+			<% if(typeof field.fields === 'string'){ %>
+				<%== $.View('//kekomi/content/form/views/widget.ejs', field) %>
+			<% } else { %>
+				<%== $.View('//kekomi/content/form/views/composed_widget.ejs', field) %>
+			<% } %>
+		<% } %>
 	</div>
 </div>
 <div class="sidebar">

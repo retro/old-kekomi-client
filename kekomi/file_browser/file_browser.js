@@ -4,7 +4,6 @@ steal(
 'steal/less',
 'kekomi/models/asset.js',
 'kekomi/models/asset_folder.js',
-'kekomi/fixtures',
 'kekomi/vendor/spin',
 'kekomi/vendor/bytes_to_size.js',
 'mxui/data/grid',

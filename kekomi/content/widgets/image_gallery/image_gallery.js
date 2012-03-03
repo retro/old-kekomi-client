@@ -13,14 +13,7 @@ steal(
 
 var modal = $('<div class="file-browser-modal"></div>'),
 		removeImage = function(){
-			var el = this.element;
-			el.find('.remove').remove();
-			el.animate({
-				width: 0,
-				opacity: 0
-			}, 200, function(){
-				el.remove()
-			});
+			this.element.remove();
 		}
 
 var file = {content_type: "image/jpeg",
@@ -67,6 +60,12 @@ $.Controller('Kekomi.Content.Widgets.ImageGallery',
 	".expand click" : function(el, ev){
 		this.element.removeClass('collapsed');
 	},
+	'.remove click' : function(el, ev){
+		if(this.find('.kekomi_content_widgets_image').length == 0){
+			this.find('.files').hide();
+		}
+		
+	},
 	'.files sortstart' : function(el, ev, ui){
 		ui.item.addClass('dragged')
 	},
@@ -86,7 +85,7 @@ $.Controller('Kekomi.Content.Widgets.ImageGallery',
 		this.find('.files').append("//kekomi/content/widgets/image_gallery/views/image.ejs", {
 			image: contentImage,
 			remove: removeImage
-		});
+		}).show();
 	}
 })
 

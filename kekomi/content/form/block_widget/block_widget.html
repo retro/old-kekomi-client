@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en">
 	<head>
-		<title>Kekomi.Content.Form</title>
+		<title>Kekomi.Content.Form.BlockWidget</title>
         <style type='text/css'>
             body {font-family: verdana}
             .error {border: solid 1px red;}
@@ -9,15 +9,16 @@
             td {padding: 3px;}
         </style>
 	</head>
-	<body spellcheck="false">
-		<div id='form'></div>
+	<body>
+	    <h1>Kekomi.Content.Form.BlockWidget Demo</h1>
+		<div id='block_widget'></div>
 		<script type='text/javascript' 
-                src='../../../steal/steal.js'>
+                src='../../../../steal/steal.js'>
         </script>
 		<script type='text/javascript'>
-			steal('kekomi/content/form', 'kekomi/fixtures', function(){
+			steal('kekomi/content/form/block_widget',function(){
 				
-				$('#form').kekomi_content_form();
+				$('#block_widget').kekomi_content_form_block_widget();
 			})
 		</script>
 	</body>

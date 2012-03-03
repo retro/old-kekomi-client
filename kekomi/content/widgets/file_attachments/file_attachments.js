@@ -57,6 +57,9 @@ $.Controller('Kekomi.Content.Widgets.FileAttachments',
 	},
 	'.remove click' : function(el, ev){
 		el.closest('.file').remove();
+		if(this.find('.file').length == 0){
+			this.find('.files').hide();
+		}
 	},
 	"{modal} selectFile" : function(el, ev, files){
 		if(this.Class.currentId === this._id){
@@ -68,7 +71,7 @@ $.Controller('Kekomi.Content.Widgets.FileAttachments',
 	},
 	addFile : function(file){
 		var contentFile = Kekomi.Models.ContentFile.newFromFile(file);
-		this.find('.files').append("//kekomi/content/widgets/file_attachments/views/file.ejs", contentFile);
+		this.find('.files').append("//kekomi/content/widgets/file_attachments/views/file.ejs", contentFile).show();
 	}
 })
 
