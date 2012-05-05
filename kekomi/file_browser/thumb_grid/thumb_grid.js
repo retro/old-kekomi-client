@@ -2,7 +2,7 @@ steal(
 'jquery/controller',
 'jquery/view/ejs',
 'steal/less',
-'kekomi/models/asset.js',
+'kekomi/models',
 'mxui/nav/selectable',
 'mxui/nav/slider'
 ).then( './thumb_grid.less', './views/init.ejs', function($){

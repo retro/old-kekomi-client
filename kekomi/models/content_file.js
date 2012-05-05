@@ -9,11 +9,11 @@ steal('jquery/model', function(){
 $.Model('Kekomi.Models.ContentFile',
 /* @Static */
 {
-	findAll: "/content_files.json",
-	findOne : "/content_files/{id}.json", 
-	create : "/content_files.json",
-	update : "/content_files/{id}.json",
-	destroy : "/content_files/{id}.json",
+	findAll : "/api/content_files.json",
+	findOne : "/api/content_files/{id}.json", 
+	create  : "/api/content_files.json",
+	update  : "/api/content_files/{id}.json",
+	destroy : "/api/content_files/{id}.json",
 	newFromFile : function(file){
 		return new Kekomi.Models.ContentFile({
 			filename : file.filename,

@@ -1,2 +1,2 @@
 // steal model files
-steal("jquery/model", './item.js', './asset.js', './asset_folder.js', './tags.js', './content_image.js', './content_text.js', './content_file.js', './block.js', './content_template.js')
+steal("jquery/model", './prefilter.js', './item.js', './asset.js', './asset_folder.js', './tags.js', './content_image.js', './content_text.js', './content_file.js', './block.js', './content_template.js')

@@ -2,7 +2,7 @@ steal(
 'jquery/controller',
 'jquery/view/ejs',
 'steal/less',
-'kekomi/models/asset.js',
+'kekomi/models',
 'kekomi/file_browser/dragged',
 'widgets/inline_edit',
 'kekomi/vendor/bytes_to_size.js'

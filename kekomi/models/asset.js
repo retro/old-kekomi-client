@@ -9,16 +9,16 @@ steal('jquery/model', 'jquery/model/list', 'kekomi/vendor/moment', function(){
 $.Model('Kekomi.Models.Asset',
 /* @Static */
 {
-	findOne : "/assets/{id}.json", 
-	create : "/assets.json",
-	update : "/assets/{id}.json",
-	destroy : "/assets/{id}.json",
+	findOne : "/api/assets/{id}.json", 
+	create  : "/api/assets.json",
+	update  : "/api/assets/{id}.json",
+	destroy : "/api/assets/{id}.json",
 
 	findAll : function(params, success, error){
 		if(params.key === null) delete params.key;
 		if(params.type === null) delete params.type;
 		return $.ajax({
-			url: '/assets.json',
+			url: '/api/assets.json',
 			type: 'get',
 			dataType: 'json asset.models',
 			data: params,
@@ -36,12 +36,13 @@ $.Model('Kekomi.Models.Asset',
 		filename   : 'string',
 		folder_id  : 'integer',
 		tags       : 'array',
-		created_at : 'date'
+		created_at : 'date',
+		upload     : 'string'
 	},
 	convert : {
 		date : function(raw){
 			if(typeof raw == 'string'){
-				return moment(raw, 'YYYY-MM-DDThh:mm:ssZ').native();
+				return moment(raw, 'YYYY-MM-DDTHH:mm:ssZ').native();
 			}
 			return moment(raw).native();
 		}

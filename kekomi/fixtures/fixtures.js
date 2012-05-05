@@ -38,4 +38,5 @@ steal("jquery/dom/fixture", './asset.js', './blocks.js', './content_templates.js
 			description: $.fixture.rand( descriptions , 1)[0]
 		}
 	})
+	$.fixture.on = false;
 })

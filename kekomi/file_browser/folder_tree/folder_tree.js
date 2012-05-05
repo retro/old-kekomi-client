@@ -2,7 +2,7 @@ steal(
 'jquery/controller',
 'jquery/view/ejs',
 'mxui/data/tree',
-'kekomi/models/asset_folder.js',
+'kekomi/models',
 'steal/less',
 'jquery/dom/route',
 'jquery/event/drop',

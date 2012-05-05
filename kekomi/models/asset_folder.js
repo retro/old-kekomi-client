@@ -10,11 +10,23 @@ var i = 0;
 $.Model('Kekomi.Models.AssetFolder',
 /* @Static */
 {
-	findAll: "/asset_folders.json",
-	findOne : "/asset_folders/{id}.json", 
-	create : "/asset_folders.json",
-	update : "/asset_folders/{id}.json",
-	destroy : "/asset_folders/{id}.json",
+	findOne : "/api/asset_folders/{id}.json", 
+	create  : "/api/asset_folders.json",
+	update  : "/api/asset_folders/{id}.json",
+	destroy : "/api/asset_folders/{id}.json",
+
+	findAll : function(params, success, error){
+		if(params.parent_id === null){
+			delete params.parent_id
+		}
+		return $.ajax({
+			url: "/api/asset_folders.json",
+			data : params,
+			success: success,
+			error: error,
+			dataType: "json asset_folder.models"
+		})
+	},
 
 	attributes : {
 		name: 'string',
